@@ -1,0 +1,14 @@
+{
+	"required": true,
+	"package": "electricbudgie.net.mixin",
+	"compatibilityLevel": "JAVA_21",
+	"mixins": [
+		"net.electricbudgie.mixin.ExampleMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"overwrites": {
+		"requireAnnotations": true
+	}
+}
