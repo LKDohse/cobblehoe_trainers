@@ -48,8 +48,8 @@ dependencies {
 	// Additional Dependencies
 	modApi "dev.architectury:architectury-fabric:13.0.8"
 
-	modImplementation("com.cobblemon:fabric:1.6.1+1.21.1")
-	modImplementation "curse.maven:radical-cobblemon-trainers-api-1152792:7035309"
+	//modImplementation("com.cobblemon:fabric:1.6.1+1.21.1")
+	//modImplementation "curse.maven:radical-cobblemon-trainers-api-1152792:7035309"
 	
 }
 

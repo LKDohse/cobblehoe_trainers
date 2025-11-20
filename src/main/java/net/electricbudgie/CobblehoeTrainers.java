@@ -1,7 +1,11 @@
 package net.electricbudgie;
 
+import net.electricbudgie.entity.ModEntities;
+import net.electricbudgie.entity.custom.NPCEntity;
+import net.electricbudgie.world.gen.ModEntitySpawns;
 import net.fabricmc.api.ModInitializer;
 
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,5 +24,10 @@ public class CobblehoeTrainers implements ModInitializer {
 		// Proceed with mild caution.
 
 		LOGGER.info("Hello Fabric world!");
+
+		ModEntities.registerModEntities();
+		ModEntitySpawns.addSpawns();
+
+		FabricDefaultAttributeRegistry.register(ModEntities.NPC, NPCEntity.createMobAttributes());
 	}
 }
