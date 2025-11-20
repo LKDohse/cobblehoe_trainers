@@ -35,8 +35,6 @@ public class NPCRenderer extends BipedEntityRenderer<NPCEntity, PlayerEntityMode
         super(context, new PlayerEntityModel<>(context.getPart(EntityModelLayers.PLAYER), false), 0.5f);
     }
 
-
-
     @Override
     public Identifier getTexture(NPCEntity entity) {
         return LOCATION_BY_VARIANT.get(entity.getVariant());

@@ -1,6 +1,10 @@
 package net.electricbudgie.entity.custom;
 
+import net.electricbudgie.CobbleHoeTrainersNetwork;
 import net.electricbudgie.entity.variant.NPCVariant;
+import net.electricbudgie.networking.DialoguePayload;
+import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -13,7 +17,10 @@ import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
@@ -23,7 +30,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 
-public class NPCEntity extends PassiveEntity implements InteractionObserver {
+public class NPCEntity extends PassiveEntity {
     private static final TrackedData<Integer> DATA_ID_TYPE_VARIANT =
             DataTracker.registerData(NPCEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
@@ -52,15 +59,18 @@ public class NPCEntity extends PassiveEntity implements InteractionObserver {
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 48.0);
     }
 
+    @Override
+    protected ActionResult interactMob(PlayerEntity player, Hand hand) {
+        var dialogText = "I'm baby narwhal pop-up yuccie tonx freegan. Vape tbh kitsch af. Freegan intelligentsia hoodie vape banjo mixtape. Bitters adaptogen man braid church-key celiac. Jean shorts leggings art party, gatekeep hella succulents coloring book. Letterpress freegan same pabst. Bicycle rights taiyaki coloring book JOMO disrupt tattooed.";
+        if (player.getWorld().isClient) return super.interactMob(player, hand);
+        ServerPlayNetworking.send((ServerPlayerEntity)player, new DialoguePayload(dialogText));
+        return ActionResult.SUCCESS;
+    }
+
     @Nullable
     @Override
     public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
         return null;
-    }
-
-    @Override
-    public void onInteractionWith(EntityInteraction interaction, Entity entity) {
-
     }
 
     @Override

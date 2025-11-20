@@ -7,9 +7,11 @@ import dev.architectury.event.events.common.PlayerEvent;
 import dev.architectury.event.events.common.TickEvent;
 import net.electricbudgie.entity.ModEntities;
 import net.electricbudgie.entity.custom.NPCEntity;
+import net.electricbudgie.networking.DialoguePayload;
 import net.electricbudgie.world.gen.ModEntitySpawns;
 import net.fabricmc.api.ModInitializer;
 
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.MinecraftServer;
@@ -42,7 +44,7 @@ public class CobblehoeTrainers implements ModInitializer {
 		// Proceed with mild caution.
 
 		LOGGER.info("Hello Fabric world!");
-
+		PayloadTypeRegistry.playS2C().register(DialoguePayload.ID, DialoguePayload.CODEC);
 		ModEntities.registerModEntities();
 		ModEntitySpawns.addSpawns();
 
