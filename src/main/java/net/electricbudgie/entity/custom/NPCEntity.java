@@ -60,9 +60,13 @@ public class NPCEntity extends PassiveEntity {
 
     @Override
     protected ActionResult interactMob(PlayerEntity player, Hand hand) {
-        if (player.getWorld().isClient) return super.interactMob(player, hand);
-        ServerPlayNetworking.send((ServerPlayerEntity)player, new DialoguePayload(getDialogText()));
+        giveDialog(player, getDialogText());
         return ActionResult.SUCCESS;
+    }
+
+    protected void giveDialog(PlayerEntity player, String dialogText){
+        if (player.getWorld().isClient) return;
+        ServerPlayNetworking.send((ServerPlayerEntity)player, new DialoguePayload(dialogText));
     }
 
     @Nullable

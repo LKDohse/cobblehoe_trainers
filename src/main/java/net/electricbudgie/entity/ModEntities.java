@@ -2,6 +2,7 @@ package net.electricbudgie.entity;
 
 import net.electricbudgie.CobblehoeTrainers;
 import net.electricbudgie.entity.custom.NPCEntity;
+import net.electricbudgie.entity.custom.TrainerEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.registry.Registries;
@@ -13,6 +14,10 @@ public class ModEntities {
     public static final EntityType<NPCEntity> NPC = Registry.register(Registries.ENTITY_TYPE,
             Identifier.of(CobblehoeTrainers.MOD_ID, "npc"),
             EntityType.Builder.create(NPCEntity::new, SpawnGroup.CREATURE).dimensions(1f, 1.5f).build());
+
+    public static final EntityType<TrainerEntity> TRAINER = Registry.register(Registries.ENTITY_TYPE,
+            Identifier.of(CobblehoeTrainers.MOD_ID, "trainer"),
+            EntityType.Builder.create(TrainerEntity::new, SpawnGroup.CREATURE).dimensions(1f, 1.5f).build());
 
     public static void registerModEntities() {
 

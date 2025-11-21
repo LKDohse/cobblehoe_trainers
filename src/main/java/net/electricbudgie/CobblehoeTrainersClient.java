@@ -17,5 +17,6 @@ public class CobblehoeTrainersClient implements ClientModInitializer {
 
         EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.NPC, () -> TexturedModelData.of(PlayerEntityModel.getTexturedModelData(Dilation.NONE, false), 64, 64));
         EntityRendererRegistry.register(ModEntities.NPC, NPCRenderer::new);
+        EntityRendererRegistry.register(ModEntities.TRAINER, NPCRenderer::new);
     }
 }

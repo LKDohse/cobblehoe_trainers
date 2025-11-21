@@ -1,22 +1,40 @@
 package net.electricbudgie;
 
 import com.gitlab.srcmc.rctapi.api.RCTApi;
+import com.gitlab.srcmc.rctapi.api.battle.BattleState;
+import com.gitlab.srcmc.rctapi.api.events.EventListener;
+import com.gitlab.srcmc.rctapi.api.events.Events;
+import com.gitlab.srcmc.rctapi.api.trainer.Trainer;
+import com.gitlab.srcmc.rctapi.api.trainer.TrainerNPC;
 import com.google.gson.Gson;
 import dev.architectury.event.events.common.LifecycleEvent;
 import dev.architectury.event.events.common.PlayerEvent;
+import net.electricbudgie.battle.BasicTrainerBattle;
 import net.electricbudgie.entity.ModEntities;
 import net.electricbudgie.entity.custom.NPCEntity;
+import net.electricbudgie.entity.custom.TrainerEntity;
+import net.electricbudgie.event.StartBattleWithNPC;
 import net.electricbudgie.networking.DialoguePayload;
 import net.electricbudgie.world.gen.ModEntitySpawns;
 import net.fabricmc.api.ModInitializer;
 
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.world.World;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Stream;
 
 public class CobblehoeTrainers implements ModInitializer {
     public static final String MOD_ID = "cobblehoetrainers";
@@ -27,7 +45,7 @@ public class CobblehoeTrainers implements ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
     // Our own instance of the service.
-    private static final RCTApi RCT = RCTApi.initInstance(MOD_ID);
+    public static final RCTApi RCT = RCTApi.initInstance(MOD_ID);
 
     // Using a gson builder provided by the api is necessary.
     private static final Gson GSON = RCT.gsonBuilder()
@@ -43,12 +61,12 @@ public class CobblehoeTrainers implements ModInitializer {
         // Proceed with mild caution.
 
         LOGGER.info("Hello Fabric world!");
-
         PayloadTypeRegistry.playS2C().register(DialoguePayload.ID, DialoguePayload.CODEC);
         ModEntities.registerModEntities();
         ModEntitySpawns.addSpawns();
 
-        FabricDefaultAttributeRegistry.register(ModEntities.NPC, NPCEntity.createMobAttributes());
+        FabricDefaultAttributeRegistry.register(ModEntities.NPC, NPCEntity.createAttributes());
+        FabricDefaultAttributeRegistry.register(ModEntities.TRAINER, NPCEntity.createAttributes());
 
         registerEvents();
     }
@@ -58,6 +76,9 @@ public class CobblehoeTrainers implements ModInitializer {
 
         PlayerEvent.PLAYER_JOIN.register(CobblehoeTrainers::onPlayerJoin);
         PlayerEvent.PLAYER_QUIT.register(CobblehoeTrainers::onPlayerQuit);
+        ServerEntityEvents.ENTITY_LOAD.register(CobblehoeTrainers::registerSpawnedTrainers);
+        ServerEntityEvents.ENTITY_UNLOAD.register(CobblehoeTrainers::unregisterSpawnedTrainers);
+        StartBattleWithNPC.EVENT.register(CobblehoeTrainers::startBattle);
     }
 
     static void onServerStarting(MinecraftServer server) {
@@ -71,6 +92,57 @@ public class CobblehoeTrainers implements ModInitializer {
 
     static void onPlayerQuit(PlayerEntity player) {
         RCT.getTrainerRegistry().unregisterById(player.getName().getString());
+    }
+
+    static void registerSpawnedTrainers(Entity entity, World world) {
+        if (!(entity instanceof TrainerEntity trainer)) return;
+        RCT.getTrainerRegistry().registerNPC(trainer.getTrainerId(), trainer.getBattleData());
+        RCT.getTrainerRegistry().getById(trainer.getTrainerId(), TrainerNPC.class).setEntity(trainer);
+    }
+
+    static void unregisterSpawnedTrainers(Entity entity, World world) {
+        if (!(entity instanceof TrainerEntity trainer)) return;
+        RCT.getTrainerRegistry().unregisterById(trainer.getTrainerId());
+    }
+
+    static void startBattle(BasicTrainerBattle battleData) {
+         var player = RCT.getTrainerRegistry().getById(battleData.getPlayer().getName().getString());
+         var trainerNpc = RCT.getTrainerRegistry().getById(battleData.getTrainerNpc().getTrainerId());
+         if (trainerNpc == null || player == null) return;
+         var battleId = RCT.getBattleManager().startBattle(new ArrayList<>(List.of(player)), new ArrayList<>(List.of(trainerNpc)), battleData.getFormat(), battleData.getRules());
+         registerBattleListeners(battleId, battleData);
+    }
+
+    static void registerBattleListeners(UUID battleId, BasicTrainerBattle battleData) {
+        if (battleId != null) {
+            EventListener<?>[] onEnd = new EventListener[1];
+
+            onEnd[0] = e -> {
+                if (e.getValue() instanceof BattleState bs && bs.getBattle().getBattleId().equals(battleId)) {
+                    if (!bs.isEndForced()) {
+                            var winnersFirst = Stream
+                                    .concat(bs.getWinners().stream(), bs.getLosers().stream())
+                                    .map(Trainer::getEntity).toArray(LivingEntity[]::new);
+
+                            var winningEntity = Arrays.stream(winnersFirst).findFirst();
+                            if (winningEntity.isPresent()){
+                                if (winningEntity.get() == battleData.getPlayer()){
+                                    battleData.getTrainerNpc().finishBattle(battleData, true);
+                                }
+                                else {
+                                    battleData.getTrainerNpc().finishBattle(battleData, false);
+                                }
+                            }
+                        }
+                    }
+
+                    RCT.getEventContext().unregister(Events.BATTLE_ENDED, (EventListener<BattleState>) onEnd[0]);
+
+            };
+
+            RCT.getEventContext().register(Events.BATTLE_ENDED, (EventListener<BattleState>) onEnd[0]);
+        }
+
     }
 
 

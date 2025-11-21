@@ -4,8 +4,6 @@ import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.text.Text;
-import net.minecraft.util.math.BlockPos;
 
 public record DialoguePayload(String dialogueText) implements CustomPayload {
     public static final CustomPayload.Id<DialoguePayload> ID = new CustomPayload.Id<>(ModNetworkingConstants.DIALOGUE_CONSTANT);
