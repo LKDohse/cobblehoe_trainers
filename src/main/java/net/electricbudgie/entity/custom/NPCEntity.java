@@ -1,9 +1,8 @@
 package net.electricbudgie.entity.custom;
 
-import net.electricbudgie.CobbleHoeTrainersNetwork;
 import net.electricbudgie.entity.variant.NPCVariant;
 import net.electricbudgie.networking.DialoguePayload;
-import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
+import net.electricbudgie.resource.DialogueLoader;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -61,9 +60,8 @@ public class NPCEntity extends PassiveEntity {
 
     @Override
     protected ActionResult interactMob(PlayerEntity player, Hand hand) {
-        var dialogText = "I'm baby narwhal pop-up yuccie tonx freegan. Vape tbh kitsch af. Freegan intelligentsia hoodie vape banjo mixtape. Bitters adaptogen man braid church-key celiac. Jean shorts leggings art party, gatekeep hella succulents coloring book. Letterpress freegan same pabst. Bicycle rights taiyaki coloring book JOMO disrupt tattooed.";
         if (player.getWorld().isClient) return super.interactMob(player, hand);
-        ServerPlayNetworking.send((ServerPlayerEntity)player, new DialoguePayload(dialogText));
+        ServerPlayNetworking.send((ServerPlayerEntity)player, new DialoguePayload(getDialogText()));
         return ActionResult.SUCCESS;
     }
 
@@ -76,6 +74,12 @@ public class NPCEntity extends PassiveEntity {
     @Override
     public boolean isReadyToBreed() {
         return false;
+    }
+
+    protected String getDialogText(){
+        var variant = getVariant();
+        var array = DialogueLoader.loadNPCDialogue(variant.name().toLowerCase());
+        return Util.getRandom(array, this.random);
     }
 
     // VARIANT LOGIC
