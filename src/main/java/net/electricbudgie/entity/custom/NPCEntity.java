@@ -30,11 +30,15 @@ import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 
 public class NPCEntity extends PassiveEntity {
-    private static final TrackedData<Integer> DATA_ID_TYPE_VARIANT =
+    protected static final TrackedData<Integer> DATA_ID_TYPE_VARIANT =
             DataTracker.registerData(NPCEntity.class, TrackedDataHandlerRegistry.INTEGER);
+
+    protected String gameName;
+    protected WanderAroundFarGoal wanderGoal;
 
     public NPCEntity(EntityType<? extends PassiveEntity> entityType, World world) {
         super(entityType, world);
+
     }
 
     public static boolean isValidNaturalSpawn(EntityType<? extends NPCEntity> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
@@ -44,9 +48,10 @@ public class NPCEntity extends PassiveEntity {
 
     @Override
     protected void initGoals() {
+        this.wanderGoal = new WanderAroundFarGoal(this, 1.0);
         this.goalSelector.add(0, new SwimGoal(this));
         this.goalSelector.add(1, new EscapeDangerGoal(this, 2.0));
-        this.goalSelector.add(5, new WanderAroundFarGoal(this, 1.0));
+        this.goalSelector.add(5, wanderGoal);
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
         this.goalSelector.add(7, new LookAroundGoal(this));
     }
@@ -101,7 +106,10 @@ public class NPCEntity extends PassiveEntity {
         return NPCVariant.byId(this.getTypeVariant() & 255); // 255 is acting as a bitwise AND operation to make sure the integer returns correctly
     }
 
-    public void setVariant(NPCVariant variant){this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);}
+    public void setVariant(NPCVariant variant){
+        this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);
+        this.gameName = variant.toString();
+    }
 
     @Override
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {

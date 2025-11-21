@@ -1,5 +1,6 @@
 package net.electricbudgie;
 
+import com.cobblemon.mod.common.pokemon.Pokemon;
 import com.gitlab.srcmc.rctapi.api.RCTApi;
 import com.gitlab.srcmc.rctapi.api.battle.BattleState;
 import com.gitlab.srcmc.rctapi.api.events.EventListener;
@@ -13,6 +14,8 @@ import net.electricbudgie.battle.BasicTrainerBattle;
 import net.electricbudgie.entity.ModEntities;
 import net.electricbudgie.entity.custom.NPCEntity;
 import net.electricbudgie.entity.custom.TrainerEntity;
+import net.electricbudgie.event.NPCBattleCheck;
+import net.electricbudgie.event.RegisterNPCTrainer;
 import net.electricbudgie.event.StartBattleWithNPC;
 import net.electricbudgie.networking.DialoguePayload;
 import net.electricbudgie.world.gen.ModEntitySpawns;
@@ -27,6 +30,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -76,8 +80,9 @@ public class CobblehoeTrainers implements ModInitializer {
 
         PlayerEvent.PLAYER_JOIN.register(CobblehoeTrainers::onPlayerJoin);
         PlayerEvent.PLAYER_QUIT.register(CobblehoeTrainers::onPlayerQuit);
-        ServerEntityEvents.ENTITY_LOAD.register(CobblehoeTrainers::registerSpawnedTrainers);
+        RegisterNPCTrainer.EVENT.register(CobblehoeTrainers::registerSpawnedTrainers);
         ServerEntityEvents.ENTITY_UNLOAD.register(CobblehoeTrainers::unregisterSpawnedTrainers);
+        NPCBattleCheck.EVENT.register(CobblehoeTrainers::getBattleCheck);
         StartBattleWithNPC.EVENT.register(CobblehoeTrainers::startBattle);
     }
 
@@ -94,7 +99,7 @@ public class CobblehoeTrainers implements ModInitializer {
         RCT.getTrainerRegistry().unregisterById(player.getName().getString());
     }
 
-    static void registerSpawnedTrainers(Entity entity, World world) {
+    static void registerSpawnedTrainers(Entity entity) {
         if (!(entity instanceof TrainerEntity trainer)) return;
         RCT.getTrainerRegistry().registerNPC(trainer.getTrainerId(), trainer.getBattleData());
         RCT.getTrainerRegistry().getById(trainer.getTrainerId(), TrainerNPC.class).setEntity(trainer);
@@ -103,6 +108,19 @@ public class CobblehoeTrainers implements ModInitializer {
     static void unregisterSpawnedTrainers(Entity entity, World world) {
         if (!(entity instanceof TrainerEntity trainer)) return;
         RCT.getTrainerRegistry().unregisterById(trainer.getTrainerId());
+    }
+
+    static void getBattleCheck(PlayerEntity player, TrainerEntity trainer){
+        var playerTrainer = CobblehoeTrainers.RCT.getTrainerRegistry().getById(player.getName().getString());
+        if (playerTrainer.getTeam().length < 1) {
+            trainer.playerHasNoPokemon(player);
+            return;
+        }
+        if (Arrays.stream(playerTrainer.getTeam()).allMatch(Pokemon::isFainted)) {
+            trainer.playerHasNoUseablePokemon(player);
+            return;
+        }
+        trainer.startBattleWith(player);
     }
 
     static void startBattle(BasicTrainerBattle battleData) {
@@ -115,34 +133,40 @@ public class CobblehoeTrainers implements ModInitializer {
 
     static void registerBattleListeners(UUID battleId, BasicTrainerBattle battleData) {
         if (battleId != null) {
-            EventListener<?>[] onEnd = new EventListener[1];
-
-            onEnd[0] = e -> {
-                if (e.getValue() instanceof BattleState bs && bs.getBattle().getBattleId().equals(battleId)) {
-                    if (!bs.isEndForced()) {
-                            var winnersFirst = Stream
-                                    .concat(bs.getWinners().stream(), bs.getLosers().stream())
-                                    .map(Trainer::getEntity).toArray(LivingEntity[]::new);
-
-                            var winningEntity = Arrays.stream(winnersFirst).findFirst();
-                            if (winningEntity.isPresent()){
-                                if (winningEntity.get() == battleData.getPlayer()){
-                                    battleData.getTrainerNpc().finishBattle(battleData, true);
-                                }
-                                else {
-                                    battleData.getTrainerNpc().finishBattle(battleData, false);
-                                }
-                            }
-                        }
-                    }
-
-                    RCT.getEventContext().unregister(Events.BATTLE_ENDED, (EventListener<BattleState>) onEnd[0]);
-
-            };
+            EventListener<?>[] onEnd = createEndBattleEventListener(battleId, battleData);
 
             RCT.getEventContext().register(Events.BATTLE_ENDED, (EventListener<BattleState>) onEnd[0]);
         }
 
+    }
+
+    private static EventListener<?> @NotNull [] createEndBattleEventListener(UUID battleId, BasicTrainerBattle battleData) {
+        EventListener<?>[] onEnd = new EventListener[1];
+
+        onEnd[0] = e -> {
+            if (e.getValue() instanceof BattleState bs && bs.getBattle().getBattleId().equals(battleId)) {
+                if (!bs.isEndForced()) {
+                        var winnersFirst = Stream
+                                .concat(bs.getWinners().stream(), bs.getLosers().stream())
+                                .map(Trainer::getEntity).toArray(LivingEntity[]::new);
+
+                        var winningEntity = Arrays.stream(winnersFirst).findFirst();
+                        if (winningEntity.isPresent()){
+                            if (winningEntity.get() == battleData.getPlayer()){
+                                battleData.getTrainerNpc().finishBattle(battleData, true);
+                            }
+                            else {
+                                battleData.getTrainerNpc().finishBattle(battleData, false);
+                            }
+                        }
+                    }
+                }
+
+                RCT.getEventContext().unregister(Events.BATTLE_ENDED, (EventListener<BattleState>) onEnd[0]);
+
+        };
+
+        return onEnd;
     }
 
 

@@ -31,7 +31,13 @@ public class DialogueScreen extends Screen {
     }
 
     @Override
+    public boolean shouldPause() {
+       return false;
+    }
+
+    @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        if (button != 1) return true;
         if (pages != null && pageIndex < pages.size() - 1) {
             pageIndex++;
         } else {
