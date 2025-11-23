@@ -33,7 +33,7 @@ public class NPCEntity extends PassiveEntity {
     protected static final TrackedData<Integer> DATA_ID_TYPE_VARIANT =
             DataTracker.registerData(NPCEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
-    protected String gameName;
+    protected String displayName;
     protected WanderAroundFarGoal wanderGoal;
 
     public NPCEntity(EntityType<? extends PassiveEntity> entityType, World world) {
@@ -108,7 +108,7 @@ public class NPCEntity extends PassiveEntity {
 
     public void setVariant(NPCVariant variant){
         this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);
-        this.gameName = variant.toString();
+        this.displayName = variant.toString();
     }
 
     @Override

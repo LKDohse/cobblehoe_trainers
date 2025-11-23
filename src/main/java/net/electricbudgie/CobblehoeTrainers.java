@@ -80,6 +80,7 @@ public class CobblehoeTrainers implements ModInitializer {
 
         PlayerEvent.PLAYER_JOIN.register(CobblehoeTrainers::onPlayerJoin);
         PlayerEvent.PLAYER_QUIT.register(CobblehoeTrainers::onPlayerQuit);
+        ServerEntityEvents.ENTITY_LOAD.register(CobblehoeTrainers::loadTrainers);
         RegisterNPCTrainer.EVENT.register(CobblehoeTrainers::registerSpawnedTrainers);
         ServerEntityEvents.ENTITY_UNLOAD.register(CobblehoeTrainers::unregisterSpawnedTrainers);
         NPCBattleCheck.EVENT.register(CobblehoeTrainers::getBattleCheck);
@@ -97,6 +98,11 @@ public class CobblehoeTrainers implements ModInitializer {
 
     static void onPlayerQuit(PlayerEntity player) {
         RCT.getTrainerRegistry().unregisterById(player.getName().getString());
+    }
+
+    static void loadTrainers(Entity entity, World world){
+        if (!(entity instanceof TrainerEntity trainer)) return;
+        trainer.registerTrainerData();
     }
 
     static void registerSpawnedTrainers(Entity entity) {
