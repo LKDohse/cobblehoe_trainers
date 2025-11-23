@@ -1,0 +1,55 @@
+{
+  "name": "youngster",
+  "spawnChance": 8,
+  "preferredBiomes": [
+    "minecraft:plains",
+    "minecraft:beach",
+    "minecraft:desert",
+    "minecraft:sunflower_plains",
+    "minecraft:forest",
+    "minecraft:flower_forest",
+    "minecraft:birch_forest",
+    "minecraft:old_growth_birch_forest",
+    "minecraft:windswept_forest",
+    "minecraft:savanna"
+  ],
+  "defaultTeamSize": 2,
+  "speciesList": [
+    {
+      "name": "rattata",
+      "minimum_trainer_level_required": 1
+    },
+    {
+      "name": "poochyena",
+      "minimum_trainer_level_required": 1
+    },
+    {
+      "name": "spearow",
+      "minimum_trainer_level_required": 1
+    },
+    {
+      "name": "zigzagoon",
+      "minimum_trainer_level_required": 1
+    },
+    {
+      "name": "starly",
+      "minimum_trainer_level_required": 1
+    },
+    {
+      "name": "caterpie",
+      "minimum_trainer_level_required": 1
+    },
+    {
+      "name": "weedle",
+      "minimum_trainer_level_required": 1
+    },
+    {
+      "name": "spinerak",
+      "minimum_trainer_level_required": 1
+    },
+    {
+      "name": "ladyba",
+      "minimum_trainer_level_required": 1
+    }
+  ]
+}

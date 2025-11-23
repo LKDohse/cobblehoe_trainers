@@ -1,0 +1,47 @@
+{
+  "name": "lass",
+  "spawnChance": 8,
+  "preferredBiomes": [
+    "minecraft:plains",
+    "minecraft:beach",
+    "minecraft:desert",
+    "minecraft:sunflower_plains",
+    "minecraft:forest",
+    "minecraft:flower_forest",
+    "minecraft:birch_forest",
+    "minecraft:old_growth_birch_forest",
+    "minecraft:windswept_forest",
+    "minecraft:savanna"
+  ],
+  "defaultTeamSize": 2,
+  "speciesList": [
+    {
+      "name": "pidgey",
+      "minimum_trainer_level_required": 1
+    },
+    {
+      "name": "spearow",
+      "minimum_trainer_level_required": 1
+    },
+    {
+      "name": "bidoof",
+      "minimum_trainer_level_required": 1
+    },
+    {
+      "name": "jigglypuff",
+      "minimum_trainer_level_required": 1
+    },
+    {
+      "name": "clefairy",
+      "minimum_trainer_level_required": 1
+    },
+    {
+      "name": "clefable",
+      "minimum_trainer_level_required": 25
+    },
+    {
+      "name": "wigglytuff",
+      "minimum_trainer_level_required": 25
+    }
+  ]
+}
