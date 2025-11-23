@@ -1,6 +1,8 @@
 package net.electricbudgie.entity.custom;
 
 import com.cobblemon.mod.common.api.pokemon.PokemonProperties;
+import com.cobblemon.mod.common.api.pokemon.evolution.Evolution;
+import com.cobblemon.mod.common.pokemon.Pokemon;
 import com.gitlab.srcmc.rctapi.api.ai.RCTBattleAI;
 import com.gitlab.srcmc.rctapi.api.battle.BattleFormat;
 import com.gitlab.srcmc.rctapi.api.battle.BattleRules;
@@ -12,6 +14,7 @@ import com.google.gson.Gson;
 import net.electricbudgie.battle.BasicTrainerBattle;
 import net.electricbudgie.battle.PokemonModelConverter;
 import net.electricbudgie.battle.TrainerBattleData;
+import net.electricbudgie.datagen.configs.TrainerConfig;
 import net.electricbudgie.event.NPCBattleCheck;
 import net.electricbudgie.event.RegisterNPCTrainer;
 import net.electricbudgie.event.StartBattleWithNPC;
@@ -33,6 +36,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class TrainerEntity extends NPCEntity {
     protected TrainerBattleData battleData;
@@ -54,7 +59,6 @@ public class TrainerEntity extends NPCEntity {
         this.team = generateTeam();
         this.bag = getBag();
         this.setCustomName(Text.literal(this.displayName + ": Level " + this.trainerLevel));
-        this.setCustomNameVisible(true);
         this.initialSpawn = false;
         return data;
     }
@@ -126,29 +130,41 @@ public class TrainerEntity extends NPCEntity {
     protected ArrayList<PokemonModel> generateTeam() {
         var teamOptions = TeamLoader.loadNPCTeamOptions(this.getVariant().name().toLowerCase());
         this.trainerLevel = calculateTrainerLevel();
+        teamOptions.speciesList = teamOptions.speciesList.stream().filter(s -> s.getMinimumTrainerLevel() < trainerLevel).toList();
 
         return populateTeam(teamOptions, this.trainerLevel);
     }
 
-    private ArrayList<PokemonModel> populateTeam(TeamLoader.teamOptions teamOptions, int defaultLevel) {
+    private ArrayList<PokemonModel> populateTeam(TrainerConfig config, int defaultLevel) {
         int defaultLevelOffset = Math.toIntExact(Math.round(defaultLevel*0.1));
+        List<String> availableSpecies = config.speciesList.stream().map(TrainerConfig.SpeciesEntry::getName).collect(Collectors.toList());
         ArrayList<PokemonModel> team = new ArrayList<>();
-        for(int i = 0; i < calculateTeamSize(teamOptions); i++){
+        for(int i = 0; i < calculateTeamSize(config.defaultTeamSize); i++){
             int levelOffset = random.nextInt(defaultLevelOffset *2+1) - defaultLevelOffset;
             int level = Math.clamp(defaultLevel + levelOffset,1, 100);
-            String species = Util.getRandom(teamOptions.speciesList(), this.random);
+            String species = Util.getRandom(availableSpecies, this.random);
             PokemonProperties properties = new PokemonProperties();
             properties.setLevel(level);
             properties.setSpecies(species);
+            properties.setSpecies(updateSpeciesIfCanEvolve(properties));
             team.add(PokemonModelConverter.getModel(properties.create()));
         }
         return team;
     }
 
-    private int calculateTeamSize(TeamLoader.teamOptions teamOptions) {
-        int defaultTeamNumber = teamOptions.defaultTeamSize();
+    private String updateSpeciesIfCanEvolve(PokemonProperties properties) {
+        Pokemon pokemon = properties.create();
+        String species = properties.getSpecies();
+        for (Evolution evolution : pokemon.getEvolutions()) {
+            boolean canEvolve = evolution.test(pokemon);
+            if(canEvolve) species = evolution.getResult().getSpecies();
+         };
+        return species;
+    }
+
+    private int calculateTeamSize(int defaultTeamSize) {
         int offset = random.nextInt(5) - 2;
-        return Math.clamp(defaultTeamNumber + offset, 1, 6);
+        return Math.clamp(defaultTeamSize + offset, 1, 6);
     }
 
     protected Integer calculateTrainerLevel(){

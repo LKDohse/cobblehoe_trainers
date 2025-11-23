@@ -15,7 +15,7 @@ public class DialogueLoader {
     private static final ArrayList<String> oopsText = new ArrayList<>(Arrays.asList("Hello Trainer!"));
 
     public static ArrayList<String> loadNPCDialogue(String npcVariant) {
-        Identifier path = Identifier.of(CobblehoeTrainers.MOD_ID, "dialog/npc/" + npcVariant + ".json");
+        Identifier path = Identifier.of(CobblehoeTrainers.MOD_ID, "npc/dialog/" + npcVariant + ".json");
         ResourceManager manager = MinecraftClient.getInstance().getResourceManager();
         try {
             var resource = manager.getResource(path);
