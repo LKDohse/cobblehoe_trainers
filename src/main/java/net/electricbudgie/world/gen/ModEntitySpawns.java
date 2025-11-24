@@ -7,8 +7,6 @@ import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.SpawnLocationTypes;
 import net.minecraft.entity.SpawnRestriction;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.world.Heightmap;
 
 public class ModEntitySpawns {
@@ -16,9 +14,9 @@ public class ModEntitySpawns {
         BiomeModifications.addSpawn(BiomeSelectors.all(),
                 SpawnGroup.CREATURE,
                 ModEntities.NPC,
-                50,
-                2,
-                5);
+                100,
+                1,
+                2);
 
         SpawnRestriction.register(ModEntities.NPC, SpawnLocationTypes.ON_GROUND,
                 Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, NPCEntity::isValidNaturalSpawn);

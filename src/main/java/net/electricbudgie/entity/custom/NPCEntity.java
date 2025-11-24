@@ -1,6 +1,7 @@
 package net.electricbudgie.entity.custom;
 
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity;
+import net.electricbudgie.CobblehoeTrainers;
 import net.electricbudgie.entity.variant.NPCVariant;
 import net.electricbudgie.networking.DialoguePayload;
 import net.electricbudgie.resource.DialogueLoader;
@@ -47,7 +48,6 @@ public class NPCEntity extends PassiveEntity {
 
     public NPCEntity(EntityType<? extends PassiveEntity> entityType, World world) {
         super(entityType, world);
-
     }
 
     public static boolean isValidNaturalSpawn(EntityType<? extends NPCEntity> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
@@ -136,8 +136,11 @@ public class NPCEntity extends PassiveEntity {
 
     @Override
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
-        String variant = loadVariant();
-        setVariant(variant);
+        CobblehoeTrainers.LOGGER.info("initializing entity Trainer because " + spawnReason.name());
+        if (!world.isClient()) {
+            String variant = loadVariant();
+            setVariant(variant);
+        }
         return super.initialize(world, difficulty, spawnReason, entityData);
     }
 
@@ -151,5 +154,10 @@ public class NPCEntity extends PassiveEntity {
     public void writeCustomDataToNbt(NbtCompound nbt) {
         super.writeCustomDataToNbt(nbt);
         nbt.putInt("variant_type", this.getTypeVariant());
+    }
+
+    @Override
+    public boolean isBaby() {
+       return false;
     }
 }
