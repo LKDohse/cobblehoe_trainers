@@ -148,7 +148,7 @@ public class TrainerEntity extends NPCEntity {
             PokemonProperties properties = new PokemonProperties();
             properties.setLevel(level);
             properties.setSpecies(species);
-            properties.setSpecies(updateSpeciesIfCanEvolve(properties));
+            properties.setSpecies(updateSpeciesIfCanEvolve(properties.create()));
             team.add(PokemonModelConverter.getModel(properties.create()));
         }
         return team;
@@ -170,15 +170,13 @@ public class TrainerEntity extends NPCEntity {
 
     }
 
-    private String updateSpeciesIfCanEvolve(PokemonProperties properties) {
-        Pokemon pokemon = properties.create();
-        String species = properties.getSpecies();
+    private String updateSpeciesIfCanEvolve(Pokemon pokemon) {
+        String species = pokemon.getSpecies().getName();
             for (Evolution evolution : pokemon.getEvolutions()) {
                 if (evolution instanceof LevelUpEvolution) {
                     boolean canEvolve = evolution.test(pokemon);
                     if (canEvolve) {
-                        properties.setSpecies(evolution.getResult().getSpecies());
-                        return updateSpeciesIfCanEvolve(properties);
+                        return updateSpeciesIfCanEvolve(evolution.getResult().create());
                     }
                 }
             }
