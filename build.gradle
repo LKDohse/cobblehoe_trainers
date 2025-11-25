@@ -46,9 +46,8 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-	// Hipster Java so Cobblemon will compile
+	// Kotlin so Cobblemon will compile
 	modImplementation "net.fabricmc:fabric-language-kotlin:${project.fabric_kotlin_version}"
-
 
 	// Additional Dependencies
 	modApi "dev.architectury:architectury-fabric:13.0.8"
