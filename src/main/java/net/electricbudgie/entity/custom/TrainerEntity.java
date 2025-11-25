@@ -52,6 +52,9 @@ public class TrainerEntity extends NPCEntity {
     protected ArrayList<BagItemModel> bag;
     protected int trainerLevel;
     protected NPCDialogConfig dialogConfig;
+    boolean despawnsAfterTimer = true;
+    private final int MAX_TICK_LIFE = 24000;
+    private int current_tick_life = 0;
 
     public TrainerEntity(EntityType<? extends PassiveEntity> entityType, World world) {
         super(entityType, world);
@@ -70,7 +73,7 @@ public class TrainerEntity extends NPCEntity {
         return data;
     }
 
-    public void registerTrainerData(){
+    public void registerTrainerData() {
         this.battleData = new TrainerBattleData(this.trainerId, this.displayName, BattleFormat.GEN_9_DOUBLES, new BattleRules(), JTO.of(RCTBattleAI::new), this.bag, this.team);
         RegisterNPCTrainer.EVENT.invoker().registerNPCTrainer(this);
     }
@@ -84,6 +87,15 @@ public class TrainerEntity extends NPCEntity {
     }
 
     //Actions
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (!this.getWorld().isClient) {
+            current_tick_life++;
+            checkForDespawn(this.current_tick_life, this.despawnsAfterTimer);
+        }
+    }
 
     @Override
     protected ActionResult interactMob(PlayerEntity player, Hand hand) {
@@ -135,7 +147,7 @@ public class TrainerEntity extends NPCEntity {
         this.goalSelector.add(5, this.wanderGoal);
     }
 
-     // Dialog Settings
+    // Dialog Settings
 
     protected enum DIALOG_OPTIONS {
         GENERAL,
@@ -146,17 +158,19 @@ public class TrainerEntity extends NPCEntity {
         PLAYER_PARTY_FAINTED
     }
 
-    protected void getDialog(DIALOG_OPTIONS dialogType, PlayerEntity player){
+    protected void getDialog(DIALOG_OPTIONS dialogType, PlayerEntity player) {
         if (player.getWorld().isClient) return;
         if (this.dialogConfig == null)
             this.dialogConfig = DialogueLoader.loadDialog(this.getVariant().name().toLowerCase());
 
-        switch(dialogType){
-            case START_FIGHT -> this.giveDialog(player, Util.getRandom(this.dialogConfig.getStartBattle(), this.random));
+        switch (dialogType) {
+            case START_FIGHT ->
+                    this.giveDialog(player, Util.getRandom(this.dialogConfig.getStartBattle(), this.random));
             case LOST_FIGHT -> this.giveDialog(player, Util.getRandom(this.dialogConfig.getLoseBattle(), this.random));
             case WON_FIGHT -> this.giveDialog(player, Util.getRandom(this.dialogConfig.getWinBattle(), this.random));
             case NO_POKEMON -> this.giveDialog(player, Util.getRandom(this.dialogConfig.getNoPokemon(), this.random));
-            case PLAYER_PARTY_FAINTED -> this.giveDialog(player, Util.getRandom(this.dialogConfig.getPlayerTeamFainted(), this.random));
+            case PLAYER_PARTY_FAINTED ->
+                    this.giveDialog(player, Util.getRandom(this.dialogConfig.getPlayerTeamFainted(), this.random));
             case GENERAL -> this.giveDialog(player, Util.getRandom(this.dialogConfig.getStandardDialog(), this.random));
             default -> this.giveDialog(player, Util.getRandom(this.dialogConfig.getStandardDialog(), this.random));
         }
@@ -181,12 +195,12 @@ public class TrainerEntity extends NPCEntity {
     }
 
     private ArrayList<PokemonModel> populateTeam(TrainerConfig config, int defaultLevel) {
-        int defaultLevelOffset = Math.toIntExact(Math.round(defaultLevel*0.1));
+        int defaultLevelOffset = Math.toIntExact(Math.round(defaultLevel * 0.1));
         int speciesListWeightSum = config.speciesList.stream().map(TrainerConfig.SpeciesEntry::getWeight).reduce(0, Integer::sum);
         ArrayList<PokemonModel> team = new ArrayList<>();
-        for(int i = 0; i < calculateTeamSize(config.defaultTeamSize); i++){
-            int levelOffset = random.nextInt(defaultLevelOffset *2+1) - defaultLevelOffset;
-            int level = Math.clamp(defaultLevel + levelOffset,1, 100);
+        for (int i = 0; i < calculateTeamSize(config.defaultTeamSize); i++) {
+            int levelOffset = random.nextInt(defaultLevelOffset * 2 + 1) - defaultLevelOffset;
+            int level = Math.clamp(defaultLevel + levelOffset, 1, 100);
             String species = getRandomWeightedSpecies(speciesListWeightSum, config.speciesList);
             PokemonProperties properties = new PokemonProperties();
             properties.setLevel(level);
@@ -197,14 +211,14 @@ public class TrainerEntity extends NPCEntity {
         return team;
     }
 
-    private String getRandomWeightedSpecies(int weightSum, List<TrainerConfig.SpeciesEntry> speciesEntryList){
+    private String getRandomWeightedSpecies(int weightSum, List<TrainerConfig.SpeciesEntry> speciesEntryList) {
         Map<TrainerConfig.SpeciesEntry, Integer> map = speciesEntryList.stream().collect(Collectors.toMap(
                 trainerConfig -> trainerConfig,
                 TrainerConfig.SpeciesEntry::getWeight
         ));
 
         var random = Math.random() * weightSum;
-        for(Map.Entry<TrainerConfig.SpeciesEntry, Integer> entry: map.entrySet()){
+        for (Map.Entry<TrainerConfig.SpeciesEntry, Integer> entry : map.entrySet()) {
             random -= entry.getValue();
             if (random <= 0) return entry.getKey().getName();
         }
@@ -231,15 +245,21 @@ public class TrainerEntity extends NPCEntity {
         return Math.clamp(defaultTeamSize + offset, 1, 6);
     }
 
-    protected Integer calculateTrainerLevel(){
-        var spawn = this.getWorld().getSpawnPos() ;
+    protected Integer calculateTrainerLevel() {
+        var spawn = this.getWorld().getSpawnPos();
         var pos = this.getBlockPos();
         var distanceVector = pos.subtract(spawn);
         double dx = distanceVector.getX();
         double dz = distanceVector.getZ();
-        var distance = Math.sqrt(dx*dx+dz*dz);
-        var level = Math.round(Math.clamp(1.5+Math.pow(Math.log10(0.12*distance), 3.75), 7, 100));
+        var distance = Math.sqrt(dx * dx + dz * dz);
+        var level = Math.round(Math.clamp(1.5 + Math.pow(Math.log10(0.12 * distance), 3.75), 7, 100));
         return Math.toIntExact(level);
+    }
+
+    //Despawn logic
+
+    protected void checkForDespawn(int current_tick_lifespawn, boolean despawnsAfterTimer) {
+        if (despawnsAfterTimer && current_tick_lifespawn >= this.MAX_TICK_LIFE) this.discard();
     }
 
     // NBT Data
@@ -263,8 +283,10 @@ public class TrainerEntity extends NPCEntity {
         this.trainerId = nbt.getString("trainerId");
         this.displayName = nbt.getString("trainerName");
         this.trainerLevel = nbt.getInt("trainerLevel");
-        Type teamListType = new TypeToken<ArrayList<PokemonModel>>(){}.getType();
-        Type bagListType = new TypeToken<ArrayList<BagItemModel>>(){}.getType();
+        Type teamListType = new TypeToken<ArrayList<PokemonModel>>() {
+        }.getType();
+        Type bagListType = new TypeToken<ArrayList<BagItemModel>>() {
+        }.getType();
         this.team = gson.fromJson(nbt.getString("team"), teamListType);
         this.bag = gson.fromJson(nbt.getString("bag"), bagListType);
     }

@@ -56,6 +56,12 @@ public class NPCEntity extends PassiveEntity {
     }
 
     @Override
+    public boolean canSpawn(WorldAccess world, SpawnReason spawnReason) {
+        if(spawnReason == SpawnReason.NATURAL) return true;
+        else return super.canSpawn(world, spawnReason);
+    }
+
+    @Override
     protected void initGoals() {
         this.wanderGoal = new WanderAroundGoal(this, 1.0);
         this.goalSelector.add(0, new SwimGoal(this));

@@ -12,13 +12,13 @@ import net.minecraft.world.Heightmap;
 public class ModEntitySpawns {
     public static void addSpawns(){
         BiomeModifications.addSpawn(BiomeSelectors.all(),
-                SpawnGroup.CREATURE,
-                ModEntities.NPC,
-                100,
+                SpawnGroup.MONSTER,
+                ModEntities.TRAINER,
+                25,
                 1,
-                2);
+                1);
 
-        SpawnRestriction.register(ModEntities.NPC, SpawnLocationTypes.ON_GROUND,
+        SpawnRestriction.register(ModEntities.TRAINER, SpawnLocationTypes.ON_GROUND,
                 Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, NPCEntity::isValidNaturalSpawn);
     }
 }
