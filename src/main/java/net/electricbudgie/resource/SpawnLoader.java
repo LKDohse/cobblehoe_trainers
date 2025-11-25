@@ -2,7 +2,7 @@ package net.electricbudgie.resource;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import net.electricbudgie.datagen.configs.TrainerConfig;
+import net.electricbudgie.datagen.configs.NPCSpawnConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.resource.Resource;
 import net.minecraft.resource.ResourceManager;
@@ -15,12 +15,13 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class SpawnLoader {
-    private static final TrainerConfig oopsHaveAYoungster = new TrainerConfig.Builder().setName("youngster").addSpecies("rattata").build();
+    private static final NPCSpawnConfig oopsHaveAYoungster = new NPCSpawnConfig.Builder().setName("youngster").build();
+    private static final String spawnConfigPath = "npc/spawn";
 
     public String getVariant(String biomeId) {
-        List<TrainerConfig> configs = loadAllConfigs();
+        List<NPCSpawnConfig> configs = loadAllConfigs();
 
-        for (TrainerConfig config : configs) {
+        for (NPCSpawnConfig config : configs) {
             System.out.println("Spawn Chance: " + config.spawnChance);
             System.out.println("Preferred Biomes: " + config.preferredBiomes);
         }
@@ -30,8 +31,8 @@ public class SpawnLoader {
         return pickFromAvailableNpcTypes(matchingTrainerTypes).name;
     }
 
-    private TrainerConfig pickFromAvailableNpcTypes(List<TrainerConfig> configs){
-        Map<TrainerConfig, Integer> map = configs.stream().collect(Collectors.toMap(
+    private NPCSpawnConfig pickFromAvailableNpcTypes(List<NPCSpawnConfig> configs){
+        Map<NPCSpawnConfig, Integer> map = configs.stream().collect(Collectors.toMap(
                 trainerConfig -> trainerConfig,
                 trainerConfig -> trainerConfig.spawnChance
         ));
@@ -40,7 +41,7 @@ public class SpawnLoader {
                 .mapToInt(Integer::intValue)
                 .sum();
         var random = Math.random() * sum;
-        for(Map.Entry<TrainerConfig, Integer> entry: map.entrySet()){
+        for(Map.Entry<NPCSpawnConfig, Integer> entry: map.entrySet()){
             random -= entry.getValue();
             if (random <= 0) return entry.getKey();
         }
@@ -48,14 +49,14 @@ public class SpawnLoader {
                return oopsHaveAYoungster;
     }
 
-    private List<TrainerConfig> loadAllConfigs() {
+    private List<NPCSpawnConfig> loadAllConfigs() {
         ResourceManager manager = MinecraftClient.getInstance().getResourceManager();
         Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
-        List<TrainerConfig> configs = new ArrayList<>();
+        List<NPCSpawnConfig> configs = new ArrayList<>();
 
         Map<Identifier, Resource> found = manager.findResources(
-                "npc/teams",
+                spawnConfigPath,
                 id -> id.getPath().endsWith(".json")
         );
 
@@ -65,7 +66,7 @@ public class SpawnLoader {
             Resource resource = entry.getValue();
 
             try (Reader reader = resource.getReader()) {
-                TrainerConfig config = GSON.fromJson(reader, TrainerConfig.class);
+                NPCSpawnConfig config = GSON.fromJson(reader, NPCSpawnConfig.class);
                 configs.add(config);
 
             } catch (Exception e) {

@@ -1,0 +1,15 @@
+{
+  "name": "lass",
+  "spawnChance": 8,
+  "preferredBiomes": [
+    "minecraft:plains",
+    "minecraft:beach",
+    "minecraft:sunflower_plains",
+    "minecraft:forest",
+    "minecraft:flower_forest",
+    "minecraft:birch_forest",
+    "minecraft:old_growth_birch_forest",
+    "minecraft:windswept_forest",
+    "minecraft:savanna"
+  ]
+}

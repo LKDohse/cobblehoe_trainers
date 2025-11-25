@@ -3,23 +3,17 @@ package net.electricbudgie.datagen.configs;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.world.biome.Biome;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TrainerConfig {
     public String name;
-    public int spawnChance;
-    public List<String> preferredBiomes;
     public int defaultTeamSize;
     public List<SpeciesEntry> speciesList;
 
-    public TrainerConfig(String name, int spawnChance, List<String> preferredBiomes, int defaultTeamSize, List<SpeciesEntry> speciesList){
+    public TrainerConfig(String name,int defaultTeamSize, List<SpeciesEntry> speciesList){
         this.name = name;
-        this.spawnChance = spawnChance;
-        this.preferredBiomes = preferredBiomes;
         this.defaultTeamSize = defaultTeamSize;
         this.speciesList = speciesList;
     }
@@ -63,8 +57,6 @@ public class TrainerConfig {
 
     /** Helper builder for easy creation */
     public static class Builder {
-        private int spawnChance = 10;
-        private List<String> preferredBiomes = new ArrayList<>();
         private int defaultTeamSize;
         private List<SpeciesEntry> speciesList = new ArrayList<>();
         private String name;
@@ -74,15 +66,6 @@ public class TrainerConfig {
             return this;
         }
 
-        public Builder setSpawnChance(int chance) {
-            this.spawnChance = chance;
-            return this;
-        }
-
-        public Builder addBiome(RegistryKey<Biome> biome) {
-            this.preferredBiomes.add(biome.getValue().toString());
-            return this;
-        }
 
         public Builder setDefaultTeamSize(int size) {
             this.defaultTeamSize = size;
@@ -105,7 +88,7 @@ public class TrainerConfig {
         }
 
         public TrainerConfig build() {
-            return new TrainerConfig(name, spawnChance, preferredBiomes, defaultTeamSize, speciesList);
+            return new TrainerConfig(name, defaultTeamSize, speciesList);
         }
     }
 }

@@ -13,27 +13,12 @@ public class NPCSpawnConfig {
     public String name;
     public int spawnChance;
     public List<String> preferredBiomes;
-    public int defaultTeamSize;
-    public List<SpeciesEntry> speciesList;
 
-    public NPCSpawnConfig(String name, int spawnChance, List<String> preferredBiomes, int defaultTeamSize, List<SpeciesEntry> speciesList){
+
+    public NPCSpawnConfig(String name, int spawnChance, List<String> preferredBiomes){
         this.name = name;
         this.spawnChance = spawnChance;
         this.preferredBiomes = preferredBiomes;
-        this.defaultTeamSize = defaultTeamSize;
-        this.speciesList = speciesList;
-    }
-
-    public static class SpeciesEntry {
-        private String name;
-
-        @SerializedName("minimum_trainer_level_required")
-        private int minimumTrainerLevel;
-
-        public SpeciesEntry(String name, int minimumTrainerLevel) {
-            this.name = name;
-            this.minimumTrainerLevel = minimumTrainerLevel;
-        }
     }
 
     public String toJson() {
@@ -45,8 +30,6 @@ public class NPCSpawnConfig {
     public static class Builder {
         private int spawnChance;
         private List<String> preferredBiomes = new ArrayList<>();
-        private int defaultTeamSize;
-        private List<SpeciesEntry> speciesList = new ArrayList<>();
         private String name;
 
         public Builder setName(String name){
@@ -64,23 +47,8 @@ public class NPCSpawnConfig {
             return this;
         }
 
-        public Builder setDefaultTeamSize(int size) {
-            this.defaultTeamSize = size;
-            return this;
-        }
-
-        public Builder addSpecies(String name, int minLevel) {
-            this.speciesList.add(new SpeciesEntry(name, minLevel));
-            return this;
-        }
-
-        public Builder addSpecies(String name) {
-            this.speciesList.add(new SpeciesEntry(name, 1));
-            return this;
-        }
-
         public NPCSpawnConfig build() {
-            return new NPCSpawnConfig(name, spawnChance, preferredBiomes, defaultTeamSize, speciesList);
+            return new NPCSpawnConfig(name, spawnChance, preferredBiomes);
         }
     }
 }

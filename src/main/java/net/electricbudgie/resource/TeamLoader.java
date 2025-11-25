@@ -13,9 +13,10 @@ import java.nio.charset.StandardCharsets;
 
 public class TeamLoader {
     private static final TrainerConfig oopsHaveADitto = new TrainerConfig.Builder().setName("youngster").addSpecies("ditto").build();
+    private static final String defaultTeamPath = "npc/teams/";
 
     public static TrainerConfig loadNPCTeamOptions(String npcVariant) {
-        Identifier path = Identifier.of(CobblehoeTrainers.MOD_ID, "npc/teams/" + npcVariant + ".json");
+        Identifier path = Identifier.of(CobblehoeTrainers.MOD_ID, defaultTeamPath + npcVariant + ".json");
         ResourceManager manager = MinecraftClient.getInstance().getResourceManager();
         try {
             var resource = manager.getResource(path);

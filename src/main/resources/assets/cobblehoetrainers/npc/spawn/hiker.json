@@ -1,0 +1,15 @@
+{
+  "name": "hiker",
+  "spawnChance": 7,
+  "preferredBiomes": [
+    "minecraft:windswept_forest",
+    "minecraft:windswept_gravelly_hills",
+    "minecraft:jagged_peaks",
+    "minecraft:stony_peaks",
+    "minecraft:windswept_hills",
+    "minecraft:windswept_savanna",
+    "minecraft:dripstone_caves",
+    "minecraft:grove",
+    "minecraft:snowy_slopes"
+  ]
+}

@@ -1,18 +1,5 @@
 {
   "name": "youngster",
-  "spawnChance": 8,
-  "preferredBiomes": [
-    "minecraft:plains",
-    "minecraft:beach",
-    "minecraft:desert",
-    "minecraft:sunflower_plains",
-    "minecraft:forest",
-    "minecraft:flower_forest",
-    "minecraft:birch_forest",
-    "minecraft:old_growth_birch_forest",
-    "minecraft:windswept_forest",
-    "minecraft:savanna"
-  ],
   "defaultTeamSize": 2,
   "speciesList": [
     {

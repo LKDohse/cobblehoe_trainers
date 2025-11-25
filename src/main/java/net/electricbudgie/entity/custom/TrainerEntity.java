@@ -148,7 +148,7 @@ public class TrainerEntity extends NPCEntity {
             PokemonProperties properties = new PokemonProperties();
             properties.setLevel(level);
             properties.setSpecies(species);
-            properties.setSpecies(updateSpeciesIfCanEvolve(properties.copy()));
+            properties.setSpecies(updateSpeciesIfCanEvolve(properties));
             team.add(PokemonModelConverter.getModel(properties.create()));
         }
         return team;
@@ -178,7 +178,7 @@ public class TrainerEntity extends NPCEntity {
                     boolean canEvolve = evolution.test(pokemon);
                     if (canEvolve) {
                         properties.setSpecies(evolution.getResult().getSpecies());
-                        return updateSpeciesIfCanEvolve(properties.copy());
+                        return updateSpeciesIfCanEvolve(properties);
                     }
                 }
             }

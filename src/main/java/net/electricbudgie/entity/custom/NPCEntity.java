@@ -121,7 +121,7 @@ public class NPCEntity extends PassiveEntity {
         this.displayName = this.variant.toUpperCase();
     }
 
-    private String loadVariant(){
+    private String loadRandomVariant(){
         RegistryEntry<Biome> biomeEntry = this.getWorld()
                 .getBiome(this.getBlockPos());
 
@@ -138,7 +138,7 @@ public class NPCEntity extends PassiveEntity {
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
         CobblehoeTrainers.LOGGER.info("initializing entity Trainer because " + spawnReason.name());
         if (!world.isClient()) {
-            String variant = loadVariant();
+            String variant = loadRandomVariant();
             setVariant(variant);
         }
         return super.initialize(world, difficulty, spawnReason, entityData);
@@ -160,4 +160,10 @@ public class NPCEntity extends PassiveEntity {
     public boolean isBaby() {
        return false;
     }
+
+    @Override
+    public boolean isInvulnerable() {
+        return true;
+    }
+
 }

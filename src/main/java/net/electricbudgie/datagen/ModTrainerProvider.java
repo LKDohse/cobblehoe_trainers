@@ -7,8 +7,6 @@ import net.minecraft.data.DataProvider;
 import net.minecraft.data.DataWriter;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
-import net.minecraft.world.biome.BiomeKeys;
-
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
@@ -26,17 +24,6 @@ public class ModTrainerProvider implements DataProvider {
     private final TrainerConfig LASS =  new TrainerConfig.Builder()
             .setName("lass")
             .setDefaultTeamSize(2)
-            .setSpawnChance(8)
-            .addBiome(BiomeKeys.PLAINS)
-            .addBiome(BiomeKeys.BEACH)
-            .addBiome(BiomeKeys.DESERT)
-            .addBiome(BiomeKeys.SUNFLOWER_PLAINS)
-            .addBiome(BiomeKeys.FOREST)
-            .addBiome(BiomeKeys.FLOWER_FOREST)
-            .addBiome(BiomeKeys.BIRCH_FOREST)
-            .addBiome(BiomeKeys.OLD_GROWTH_BIRCH_FOREST)
-            .addBiome(BiomeKeys.WINDSWEPT_FOREST)
-            .addBiome(BiomeKeys.SAVANNA)
             .addSpecies("pidgey",6)
             .addSpecies("spearow")
             .addSpecies("bidoof",7)
@@ -78,17 +65,6 @@ public class ModTrainerProvider implements DataProvider {
     private final TrainerConfig YOUNGSTER = new TrainerConfig.Builder()
             .setName("youngster")
             .setDefaultTeamSize(2)
-            .setSpawnChance(8)
-            .addBiome(BiomeKeys.PLAINS)
-            .addBiome(BiomeKeys.BEACH)
-            .addBiome(BiomeKeys.DESERT)
-            .addBiome(BiomeKeys.SUNFLOWER_PLAINS)
-            .addBiome(BiomeKeys.FOREST)
-            .addBiome(BiomeKeys.FLOWER_FOREST)
-            .addBiome(BiomeKeys.BIRCH_FOREST)
-            .addBiome(BiomeKeys.OLD_GROWTH_BIRCH_FOREST)
-            .addBiome(BiomeKeys.WINDSWEPT_FOREST)
-            .addBiome(BiomeKeys.SAVANNA)
             .addSpecies("rattata",8)
             .addSpecies("poochyena",6)
             .addSpecies("spearow")
@@ -125,16 +101,6 @@ public class ModTrainerProvider implements DataProvider {
     private final TrainerConfig HIKER = new TrainerConfig.Builder()
             .setName("hiker")
             .setDefaultTeamSize(3)
-            .setSpawnChance(7)
-            .addBiome(BiomeKeys.WINDSWEPT_FOREST)
-            .addBiome(BiomeKeys.WINDSWEPT_GRAVELLY_HILLS)
-            .addBiome(BiomeKeys.JAGGED_PEAKS)
-            .addBiome(BiomeKeys.STONY_PEAKS)
-            .addBiome(BiomeKeys.WINDSWEPT_HILLS)
-            .addBiome(BiomeKeys.WINDSWEPT_SAVANNA)
-            .addBiome(BiomeKeys.DRIPSTONE_CAVES)
-            .addBiome(BiomeKeys.GROVE)
-            .addBiome(BiomeKeys.SNOWY_SLOPES)
             .addSpecies("geodude", 7)
             .addSpecies("golem", 4, 35)
             .addSpecies("onix", 6)
