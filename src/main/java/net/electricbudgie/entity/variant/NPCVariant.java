@@ -5,7 +5,8 @@ import java.util.Comparator;
 
 public enum NPCVariant {
     LASS(0),
-    YOUNGSTER(1);
+    YOUNGSTER(1),
+    HIKER(2);
 
     private final int id;
     private static final NPCVariant[] BY_ID = Arrays.stream(values()).sorted(Comparator.comparingInt(NPCVariant::getId)).toArray(NPCVariant[]::new);

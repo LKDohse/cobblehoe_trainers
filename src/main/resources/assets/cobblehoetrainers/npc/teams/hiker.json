@@ -1,0 +1,113 @@
+{
+  "name": "hiker",
+  "spawnChance": 7,
+  "preferredBiomes": [
+    "minecraft:windswept_forest",
+    "minecraft:windswept_gravelly_hills",
+    "minecraft:jagged_peaks",
+    "minecraft:stony_peaks",
+    "minecraft:windswept_hills",
+    "minecraft:windswept_savanna",
+    "minecraft:dripstone_caves",
+    "minecraft:grove",
+    "minecraft:snowy_slopes"
+  ],
+  "defaultTeamSize": 3,
+  "speciesList": [
+    {
+      "name": "geodude",
+      "minimum_trainer_level_required": 1,
+      "weight": 7
+    },
+    {
+      "name": "golem",
+      "minimum_trainer_level_required": 35,
+      "weight": 4
+    },
+    {
+      "name": "onix",
+      "minimum_trainer_level_required": 1,
+      "weight": 6
+    },
+    {
+      "name": "steelix",
+      "minimum_trainer_level_required": 35,
+      "weight": 4
+    },
+    {
+      "name": "zubat",
+      "minimum_trainer_level_required": 1,
+      "weight": 6
+    },
+    {
+      "name": "diglett",
+      "minimum_trainer_level_required": 1,
+      "weight": 6
+    },
+    {
+      "name": "machop",
+      "minimum_trainer_level_required": 1,
+      "weight": 5
+    },
+    {
+      "name": "machamp",
+      "minimum_trainer_level_required": 40,
+      "weight": 3
+    },
+    {
+      "name": "nosepass",
+      "minimum_trainer_level_required": 1,
+      "weight": 6
+    },
+    {
+      "name": "sandshrew",
+      "minimum_trainer_level_required": 1,
+      "weight": 5
+    },
+    {
+      "name": "numel",
+      "minimum_trainer_level_required": 1,
+      "weight": 3
+    },
+    {
+      "name": "roggenrola",
+      "minimum_trainer_level_required": 1,
+      "weight": 4
+    },
+    {
+      "name": "gigalith",
+      "minimum_trainer_level_required": 35,
+      "weight": 4
+    },
+    {
+      "name": "aron",
+      "minimum_trainer_level_required": 1,
+      "weight": 3
+    },
+    {
+      "name": "drilbur",
+      "minimum_trainer_level_required": 1,
+      "weight": 4
+    },
+    {
+      "name": "timburr",
+      "minimum_trainer_level_required": 1,
+      "weight": 3
+    },
+    {
+      "name": "conkeldurr",
+      "minimum_trainer_level_required": 40,
+      "weight": 3
+    },
+    {
+      "name": "gligar",
+      "minimum_trainer_level_required": 1,
+      "weight": 5
+    },
+    {
+      "name": "swinub",
+      "minimum_trainer_level_required": 1,
+      "weight": 4
+    }
+  ]
+}

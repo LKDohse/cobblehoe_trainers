@@ -30,9 +30,17 @@ public class TrainerConfig {
         @SerializedName("minimum_trainer_level_required")
         private int minimumTrainerLevel;
 
-        public SpeciesEntry(String name, int minimumTrainerLevel) {
+        private int weight = 5;
+
+        public SpeciesEntry(String name, int minimumTrainerLevel){
             this.name = name;
             this.minimumTrainerLevel = minimumTrainerLevel;
+        }
+
+        public SpeciesEntry(String name, int minimumTrainerLevel, int weight) {
+            this.name = name;
+            this.minimumTrainerLevel = minimumTrainerLevel;
+            this.weight = weight;
         }
 
         public String getName() {
@@ -41,6 +49,10 @@ public class TrainerConfig {
 
         public int getMinimumTrainerLevel() {
             return minimumTrainerLevel;
+        }
+
+        public int getWeight(){
+            return weight;
         }
     }
 
@@ -77,13 +89,18 @@ public class TrainerConfig {
             return this;
         }
 
-        public Builder addSpecies(String name, int minLevel) {
-            this.speciesList.add(new SpeciesEntry(name, minLevel));
+        public Builder addSpecies(String name, int weight) {
+            this.speciesList.add(new SpeciesEntry(name, 1, weight));
             return this;
         }
 
         public Builder addSpecies(String name) {
             this.speciesList.add(new SpeciesEntry(name, 1));
+            return this;
+        }
+
+        public Builder addSpecies(String name, int weight, int minLevel){
+            this.speciesList.add(new SpeciesEntry(name, minLevel, weight));
             return this;
         }
 

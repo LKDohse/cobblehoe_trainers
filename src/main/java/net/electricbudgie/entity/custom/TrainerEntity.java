@@ -3,6 +3,7 @@ package net.electricbudgie.entity.custom;
 import com.cobblemon.mod.common.api.pokemon.PokemonProperties;
 import com.cobblemon.mod.common.api.pokemon.evolution.Evolution;
 import com.cobblemon.mod.common.pokemon.Pokemon;
+import com.cobblemon.mod.common.pokemon.evolution.variants.LevelUpEvolution;
 import com.gitlab.srcmc.rctapi.api.ai.RCTBattleAI;
 import com.gitlab.srcmc.rctapi.api.battle.BattleFormat;
 import com.gitlab.srcmc.rctapi.api.battle.BattleRules;
@@ -37,6 +38,7 @@ import org.jetbrains.annotations.Nullable;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class TrainerEntity extends NPCEntity {
@@ -137,28 +139,49 @@ public class TrainerEntity extends NPCEntity {
 
     private ArrayList<PokemonModel> populateTeam(TrainerConfig config, int defaultLevel) {
         int defaultLevelOffset = Math.toIntExact(Math.round(defaultLevel*0.1));
-        List<String> availableSpecies = config.speciesList.stream().map(TrainerConfig.SpeciesEntry::getName).collect(Collectors.toList());
+        int speciesListWeightSum = config.speciesList.stream().map(TrainerConfig.SpeciesEntry::getWeight).reduce(0, Integer::sum);
         ArrayList<PokemonModel> team = new ArrayList<>();
         for(int i = 0; i < calculateTeamSize(config.defaultTeamSize); i++){
             int levelOffset = random.nextInt(defaultLevelOffset *2+1) - defaultLevelOffset;
             int level = Math.clamp(defaultLevel + levelOffset,1, 100);
-            String species = Util.getRandom(availableSpecies, this.random);
+            String species = getRandomWeightedSpecies(speciesListWeightSum, config.speciesList);
             PokemonProperties properties = new PokemonProperties();
             properties.setLevel(level);
             properties.setSpecies(species);
-            properties.setSpecies(updateSpeciesIfCanEvolve(properties));
+            properties.setSpecies(updateSpeciesIfCanEvolve(properties.copy()));
             team.add(PokemonModelConverter.getModel(properties.create()));
         }
         return team;
     }
 
+    private String getRandomWeightedSpecies(int weightSum, List<TrainerConfig.SpeciesEntry> speciesEntryList){
+            Map<TrainerConfig.SpeciesEntry, Integer> map = speciesEntryList.stream().collect(Collectors.toMap(
+                    trainerConfig -> trainerConfig,
+                    TrainerConfig.SpeciesEntry::getWeight
+            ));
+
+            var random = Math.random() * weightSum;
+            for(Map.Entry<TrainerConfig.SpeciesEntry, Integer> entry: map.entrySet()){
+                random -= entry.getValue();
+                if (random <= 0) return entry.getKey().getName();
+            }
+
+            return "ditto";
+
+    }
+
     private String updateSpeciesIfCanEvolve(PokemonProperties properties) {
         Pokemon pokemon = properties.create();
         String species = properties.getSpecies();
-        for (Evolution evolution : pokemon.getEvolutions()) {
-            boolean canEvolve = evolution.test(pokemon);
-            if(canEvolve) species = evolution.getResult().getSpecies();
-         };
+            for (Evolution evolution : pokemon.getEvolutions()) {
+                if (evolution instanceof LevelUpEvolution) {
+                    boolean canEvolve = evolution.test(pokemon);
+                    if (canEvolve) {
+                        properties.setSpecies(evolution.getResult().getSpecies());
+                        return updateSpeciesIfCanEvolve(properties.copy());
+                    }
+                }
+            }
         return species;
     }
 

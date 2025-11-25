@@ -17,39 +17,158 @@
   "speciesList": [
     {
       "name": "rattata",
-      "minimum_trainer_level_required": 1
+      "minimum_trainer_level_required": 1,
+      "weight": 8
     },
     {
       "name": "poochyena",
-      "minimum_trainer_level_required": 1
+      "minimum_trainer_level_required": 1,
+      "weight": 6
     },
     {
       "name": "spearow",
-      "minimum_trainer_level_required": 1
+      "minimum_trainer_level_required": 1,
+      "weight": 5
     },
     {
       "name": "zigzagoon",
-      "minimum_trainer_level_required": 1
+      "minimum_trainer_level_required": 1,
+      "weight": 6
     },
     {
       "name": "starly",
-      "minimum_trainer_level_required": 1
+      "minimum_trainer_level_required": 1,
+      "weight": 5
     },
     {
       "name": "caterpie",
-      "minimum_trainer_level_required": 1
+      "minimum_trainer_level_required": 1,
+      "weight": 3
     },
     {
       "name": "weedle",
-      "minimum_trainer_level_required": 1
+      "minimum_trainer_level_required": 1,
+      "weight": 3
     },
     {
       "name": "spinerak",
-      "minimum_trainer_level_required": 1
+      "minimum_trainer_level_required": 1,
+      "weight": 4
     },
     {
       "name": "ladyba",
-      "minimum_trainer_level_required": 1
+      "minimum_trainer_level_required": 1,
+      "weight": 3
+    },
+    {
+      "name": "nidoranm",
+      "minimum_trainer_level_required": 1,
+      "weight": 6
+    },
+    {
+      "name": "nidoking",
+      "minimum_trainer_level_required": 45,
+      "weight": 6
+    },
+    {
+      "name": "slowpoke",
+      "minimum_trainer_level_required": 1,
+      "weight": 3
+    },
+    {
+      "name": "ekans",
+      "minimum_trainer_level_required": 1,
+      "weight": 4
+    },
+    {
+      "name": "sandshrew",
+      "minimum_trainer_level_required": 1,
+      "weight": 5
+    },
+    {
+      "name": "mankey",
+      "minimum_trainer_level_required": 1,
+      "weight": 5
+    },
+    {
+      "name": "zubat",
+      "minimum_trainer_level_required": 1,
+      "weight": 5
+    },
+    {
+      "name": "crobat",
+      "minimum_trainer_level_required": 35,
+      "weight": 3
+    },
+    {
+      "name": "growlith",
+      "minimum_trainer_level_required": 1,
+      "weight": 3
+    },
+    {
+      "name": "seedot",
+      "minimum_trainer_level_required": 1,
+      "weight": 4
+    },
+    {
+      "name": "shiftry",
+      "minimum_trainer_level_required": 25,
+      "weight": 5
+    },
+    {
+      "name": "tranpinch",
+      "minimum_trainer_level_required": 1,
+      "weight": 2
+    },
+    {
+      "name": "electrike",
+      "minimum_trainer_level_required": 1,
+      "weight": 3
+    },
+    {
+      "name": "kricketot",
+      "minimum_trainer_level_required": 1,
+      "weight": 3
+    },
+    {
+      "name": "aipom",
+      "minimum_trainer_level_required": 1,
+      "weight": 3
+    },
+    {
+      "name": "buizel",
+      "minimum_trainer_level_required": 1,
+      "weight": 3
+    },
+    {
+      "name": "patrat",
+      "minimum_trainer_level_required": 1,
+      "weight": 6
+    },
+    {
+      "name": "lillipup",
+      "minimum_trainer_level_required": 1,
+      "weight": 5
+    },
+    {
+      "name": "yanma",
+      "minimum_trainer_level_required": 1,
+      "weight": 3
+    },
+    {
+      "name": "venonat",
+      "minimum_trainer_level_required": 1,
+      "weight": 4
+    },
+    {
+      "name": "pidove",
+      "minimum_trainer_level_required": 1,
+      "weight": 4
+    },
+    {
+      "name": "emolga",
+      "minimum_trainer_level_required": 1,
+      "weight": 3
     }
   ]
 }

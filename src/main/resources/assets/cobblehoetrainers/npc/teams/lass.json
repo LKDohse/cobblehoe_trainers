@@ -17,31 +17,183 @@
   "speciesList": [
     {
       "name": "pidgey",
-      "minimum_trainer_level_required": 1
+      "minimum_trainer_level_required": 1,
+      "weight": 6
     },
     {
       "name": "spearow",
-      "minimum_trainer_level_required": 1
+      "minimum_trainer_level_required": 1,
+      "weight": 5
     },
     {
       "name": "bidoof",
-      "minimum_trainer_level_required": 1
+      "minimum_trainer_level_required": 1,
+      "weight": 7
     },
     {
       "name": "jigglypuff",
-      "minimum_trainer_level_required": 1
+      "minimum_trainer_level_required": 1,
+      "weight": 6
     },
     {
       "name": "clefairy",
-      "minimum_trainer_level_required": 1
+      "minimum_trainer_level_required": 1,
+      "weight": 6
     },
     {
       "name": "clefable",
-      "minimum_trainer_level_required": 25
+      "minimum_trainer_level_required": 25,
+      "weight": 5
     },
     {
       "name": "wigglytuff",
-      "minimum_trainer_level_required": 25
+      "minimum_trainer_level_required": 25,
+      "weight": 5
+    },
+    {
+      "name": "nidoranf",
+      "minimum_trainer_level_required": 1,
+      "weight": 6
+    },
+    {
+      "name": "nidoqueen",
+      "minimum_trainer_level_required": 40,
+      "weight": 6
+    },
+    {
+      "name": "oddish",
+      "minimum_trainer_level_required": 1,
+      "weight": 4
+    },
+    {
+      "name": "vileplume",
+      "minimum_trainer_level_required": 35,
+      "weight": 3
+    },
+    {
+      "name": "bellsprout",
+      "minimum_trainer_level_required": 1,
+      "weight": 4
+    },
+    {
+      "name": "victreebel",
+      "minimum_trainer_level_required": 35,
+      "weight": 3
+    },
+    {
+      "name": "meowth",
+      "minimum_trainer_level_required": 1,
+      "weight": 6
+    },
+    {
+      "name": "paras",
+      "minimum_trainer_level_required": 1,
+      "weight": 5
+    },
+    {
+      "name": "psyduck",
+      "minimum_trainer_level_required": 1,
+      "weight": 5
+    },
+    {
+      "name": "mareep",
+      "minimum_trainer_level_required": 1,
+      "weight": 5
+    },
+    {
+      "name": "hoppip",
+      "minimum_trainer_level_required": 1,
+      "weight": 5
+    },
+    {
+      "name": "sunkern",
+      "minimum_trainer_level_required": 1,
+      "weight": 5
+    },
+    {
+      "name": "marill",
+      "minimum_trainer_level_required": 1,
+      "weight": 6
+    },
+    {
+      "name": "lotad",
+      "minimum_trainer_level_required": 1,
+      "weight": 5
+    },
+    {
+      "name": "luvdisc",
+      "minimum_trainer_level_required": 1,
+      "weight": 5
+    },
+    {
+      "name": "shroomish",
+      "minimum_trainer_level_required": 1,
+      "weight": 5
+    },
+    {
+      "name": "skitty",
+      "minimum_trainer_level_required": 1,
+      "weight": 5
+    },
+    {
+      "name": "pachirisu",
+      "minimum_trainer_level_required": 1,
+      "weight": 5
+    },
+    {
+      "name": "cherubi",
+      "minimum_trainer_level_required": 1,
+      "weight": 5
+    },
+    {
+      "name": "budew",
+      "minimum_trainer_level_required": 1,
+      "weight": 5
+    },
+    {
+      "name": "roselia",
+      "minimum_trainer_level_required": 15,
+      "weight": 5
+    },
+    {
+      "name": "roserade",
+      "minimum_trainer_level_required": 30,
+      "weight": 5
+    },
+    {
+      "name": "whimsicott",
+      "minimum_trainer_level_required": 30,
+      "weight": 5
+    },
+    {
+      "name": "deerling",
+      "minimum_trainer_level_required": 1,
+      "weight": 5
+    },
+    {
+      "name": "buneary",
+      "minimum_trainer_level_required": 1,
+      "weight": 6
+    },
+    {
+      "name": "purrloin",
+      "minimum_trainer_level_required": 1,
+      "weight": 5
+    },
+    {
+      "name": "gothita",
+      "minimum_trainer_level_required": 1,
+      "weight": 4
+    },
+    {
+      "name": "bunnelby",
+      "minimum_trainer_level_required": 1,
+      "weight": 5
+    },
+    {
+      "name": "dendenne",
+      "minimum_trainer_level_required": 1,
+      "weight": 6
     }
   ]
 }
