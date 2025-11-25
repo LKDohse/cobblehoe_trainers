@@ -1,0 +1,23 @@
+{
+  "name": "hiker",
+  "standardDialog": [
+    "Nothing beats the great outdoors."
+  ],
+  "startBattle": [
+    "Hoo hah! I am mighty!",
+    "Nothing beats training in the great outdoors!",
+    "Feel the power of pokemon trained in the mountains!"
+  ],
+  "loseBattle": [
+    "Never mind..."
+  ],
+  "winBattle": [
+    "We are mighty!"
+  ],
+  "noPokemon": [
+    "Pretty dangerous to be out in the wilderness with no pokemon!"
+  ],
+  "playerTeamFainted": [
+    "Your pokemon can\u0027t grow any stronger if they aren\u0027t fit to fight!"
+  ]
+}

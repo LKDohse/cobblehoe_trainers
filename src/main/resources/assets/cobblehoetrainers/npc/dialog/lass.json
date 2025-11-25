@@ -1,5 +1,24 @@
-[
-  "Text 1",
-  "Text 2",
-  "Text 3"
-]
+{
+  "name": "lass",
+  "standardDialog": [
+    "Fairy types are so cute, don\u0027t you think?",
+    "Doesn\u0027t it suck how the patriarchy demonizes and belittles anything that can be attributed to the feminine?",
+    "I love PIDGEY!",
+    "BIDOOF is so cute!"
+  ],
+  "startBattle": [
+    "Oh, I suppose I have some time to battle you."
+  ],
+  "loseBattle": [
+    "Oh, I guess I have some time to lose to you, too. "
+  ],
+  "winBattle": [
+    "Better luck next time!"
+  ],
+  "noPokemon": [
+    "I\u0027d love to fight you, but don\u0027t you think you should get a pokemon first?"
+  ],
+  "playerTeamFainted": [
+    "Oh no, your poor pokemon! You need to go get them healed at a Pokemon Center!"
+  ]
+}

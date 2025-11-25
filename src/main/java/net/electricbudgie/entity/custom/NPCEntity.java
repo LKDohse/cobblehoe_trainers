@@ -1,7 +1,7 @@
 package net.electricbudgie.entity.custom;
 
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity;
-import net.electricbudgie.CobblehoeTrainers;
+import net.electricbudgie.datagen.configs.NPCDialogConfig;
 import net.electricbudgie.entity.variant.NPCVariant;
 import net.electricbudgie.networking.DialoguePayload;
 import net.electricbudgie.resource.DialogueLoader;
@@ -45,6 +45,7 @@ public class NPCEntity extends PassiveEntity {
     protected String variant;
     protected String displayName;
     protected WanderAroundGoal wanderGoal;
+    protected NPCDialogConfig dialogConfig;
 
     public NPCEntity(EntityType<? extends PassiveEntity> entityType, World world) {
         super(entityType, world);
@@ -83,26 +84,14 @@ public class NPCEntity extends PassiveEntity {
         ServerPlayNetworking.send((ServerPlayerEntity)player, new DialoguePayload(dialogText));
     }
 
-    @Nullable
-    @Override
-    public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-        return null;
-    }
-
-    @Override
-    public boolean isReadyToBreed() {
-        return false;
-    }
-
     protected String getDialogText(){
         var variant = getVariant();
-        var array = DialogueLoader.loadNPCDialogue(variant.name().toLowerCase());
-        return Util.getRandom(array, this.random);
+        if (this.dialogConfig == null)
+            this.dialogConfig = DialogueLoader.loadDialog(variant.name().toLowerCase());
+        return Util.getRandom(this.dialogConfig.getStandardDialog(), this.random);
     }
 
     // VARIANT LOGIC
-
-
     @Override
     protected void initDataTracker(DataTracker.Builder builder) {
         super.initDataTracker(builder);
@@ -136,7 +125,6 @@ public class NPCEntity extends PassiveEntity {
 
     @Override
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
-        CobblehoeTrainers.LOGGER.info("initializing entity Trainer because " + spawnReason.name());
         if (!world.isClient()) {
             String variant = loadRandomVariant();
             setVariant(variant);
@@ -156,6 +144,7 @@ public class NPCEntity extends PassiveEntity {
         nbt.putInt("variant_type", this.getTypeVariant());
     }
 
+    // Overrides
     @Override
     public boolean isBaby() {
        return false;
@@ -164,6 +153,17 @@ public class NPCEntity extends PassiveEntity {
     @Override
     public boolean isInvulnerable() {
         return true;
+    }
+
+    @Nullable
+    @Override
+    public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
+        return null;
+    }
+
+    @Override
+    public boolean isReadyToBreed() {
+        return false;
     }
 
 }

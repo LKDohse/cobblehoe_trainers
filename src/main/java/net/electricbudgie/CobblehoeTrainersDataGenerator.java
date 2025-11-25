@@ -1,5 +1,6 @@
 package net.electricbudgie;
 
+import net.electricbudgie.datagen.ModDialogProvider;
 import net.electricbudgie.datagen.ModNPCProvider;
 import net.electricbudgie.datagen.ModTrainerProvider;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
@@ -11,5 +12,6 @@ public class CobblehoeTrainersDataGenerator implements DataGeneratorEntrypoint {
 			FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
 		pack.addProvider(ModTrainerProvider::new);
 		pack.addProvider(ModNPCProvider::new);
+		pack.addProvider(ModDialogProvider::new);
 	}
 }

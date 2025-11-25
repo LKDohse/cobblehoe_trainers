@@ -1,4 +1,21 @@
-[
-  "A",
-  "B"
-]
+{
+  "name": "youngster",
+  "standardDialog": [
+    "Do you like shorts?"
+  ],
+  "startBattle": [
+    "I like shorts! They\u0027re comfy and easy to wear!"
+  ],
+  "loseBattle": [
+    "Oh no, my mom was right..."
+  ],
+  "winBattle": [
+    "Haha! I won! My mom was wrong!"
+  ],
+  "noPokemon": [
+    "Hey, you don\u0027t have any pokemon!"
+  ],
+  "playerTeamFainted": [
+    "Uh, you should probably go get your pokemon healed first."
+  ]
+}

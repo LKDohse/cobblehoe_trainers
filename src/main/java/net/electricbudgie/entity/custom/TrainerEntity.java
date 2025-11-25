@@ -15,10 +15,12 @@ import com.google.gson.Gson;
 import net.electricbudgie.battle.BasicTrainerBattle;
 import net.electricbudgie.battle.PokemonModelConverter;
 import net.electricbudgie.battle.TrainerBattleData;
+import net.electricbudgie.datagen.configs.NPCDialogConfig;
 import net.electricbudgie.datagen.configs.TrainerConfig;
 import net.electricbudgie.event.NPCBattleCheck;
 import net.electricbudgie.event.RegisterNPCTrainer;
 import net.electricbudgie.event.StartBattleWithNPC;
+import net.electricbudgie.resource.DialogueLoader;
 import net.electricbudgie.resource.TeamLoader;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
@@ -49,10 +51,13 @@ public class TrainerEntity extends NPCEntity {
     protected ArrayList<PokemonModel> team;
     protected ArrayList<BagItemModel> bag;
     protected int trainerLevel;
+    protected NPCDialogConfig dialogConfig;
 
     public TrainerEntity(EntityType<? extends PassiveEntity> entityType, World world) {
         super(entityType, world);
     }
+
+    //Trainer Initialization
 
     @Override
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
@@ -70,31 +75,47 @@ public class TrainerEntity extends NPCEntity {
         RegisterNPCTrainer.EVENT.invoker().registerNPCTrainer(this);
     }
 
-    @Override
-    protected ActionResult interactMob(PlayerEntity player, Hand hand) {
-        checkCanBattle(player);
-        return ActionResult.SUCCESS;
-    }
-
-    public void checkCanBattle(PlayerEntity player) {
-        if (isInBattle()) return;
-        NPCBattleCheck.EVENT.invoker().getBattleCheck(player, this);
-    }
-
-    public void startBattleWith(PlayerEntity player) {
-        this.giveDialog(player, "Let's battle!");
-        this.goalSelector.remove(this.wanderGoal);
-        this.setOpponent(player);
-        BasicTrainerBattle battle = new BasicTrainerBattle(player, this);
-        StartBattleWithNPC.EVENT.invoker().startBattle(battle);
-    }
-
     public TrainerBattleData getBattleData() {
         return battleData;
     }
 
     public String getTrainerId() {
         return trainerId;
+    }
+
+    //Actions
+
+    @Override
+    protected ActionResult interactMob(PlayerEntity player, Hand hand) {
+        checkCanBattle(player);
+        return ActionResult.SUCCESS;
+    }
+
+    //Trainer Battles
+
+    public void checkCanBattle(PlayerEntity player) {
+        if (isInBattle()) return;
+        NPCBattleCheck.EVENT.invoker().getBattleCheck(player, this);
+    }
+
+    public boolean isInBattle() {
+        return this.opponent != null;
+    }
+
+    public void playerHasNoUseablePokemon(PlayerEntity player) {
+        getDialog(DIALOG_OPTIONS.PLAYER_PARTY_FAINTED, player);
+    }
+
+    public void playerHasNoPokemon(PlayerEntity player) {
+        this.getDialog(DIALOG_OPTIONS.NO_POKEMON, player);
+    }
+
+    public void startBattleWith(PlayerEntity player) {
+        this.getDialog(DIALOG_OPTIONS.START_FIGHT, player);
+        this.goalSelector.remove(this.wanderGoal);
+        this.setOpponent(player);
+        BasicTrainerBattle battle = new BasicTrainerBattle(player, this);
+        StartBattleWithNPC.EVENT.invoker().startBattle(battle);
     }
 
     protected void setOpponent(PlayerEntity player) {
@@ -105,22 +126,44 @@ public class TrainerEntity extends NPCEntity {
         return this.opponent;
     }
 
-    public boolean isInBattle() {
-        return this.opponent != null;
-    }
-
-    public void playerHasNoPokemon(PlayerEntity player) {
-        this.giveDialog(player, "You don't have any pokemon!");
-    }
-
     public void finishBattle(BasicTrainerBattle battle, boolean defeated) {
         this.setOpponent(null);
         if (defeated) {
-            this.giveDialog(battle.getInitiator(), "Aw man, you beat me!");
+            this.getDialog(DIALOG_OPTIONS.LOST_FIGHT, battle.getInitiator());
         } else
-            this.giveDialog(battle.getInitiator(), "Haha, take that, nerd!");
+            this.getDialog(DIALOG_OPTIONS.WON_FIGHT, battle.getInitiator());
         this.goalSelector.add(5, this.wanderGoal);
     }
+
+     // Dialog Settings
+
+    protected enum DIALOG_OPTIONS {
+        GENERAL,
+        START_FIGHT,
+        LOST_FIGHT,
+        WON_FIGHT,
+        NO_POKEMON,
+        PLAYER_PARTY_FAINTED
+    }
+
+    protected void getDialog(DIALOG_OPTIONS dialogType, PlayerEntity player){
+        if (player.getWorld().isClient) return;
+        if (this.dialogConfig == null)
+            this.dialogConfig = DialogueLoader.loadDialog(this.getVariant().name().toLowerCase());
+
+        switch(dialogType){
+            case START_FIGHT -> this.giveDialog(player, Util.getRandom(this.dialogConfig.getStartBattle(), this.random));
+            case LOST_FIGHT -> this.giveDialog(player, Util.getRandom(this.dialogConfig.getLoseBattle(), this.random));
+            case WON_FIGHT -> this.giveDialog(player, Util.getRandom(this.dialogConfig.getWinBattle(), this.random));
+            case NO_POKEMON -> this.giveDialog(player, Util.getRandom(this.dialogConfig.getNoPokemon(), this.random));
+            case PLAYER_PARTY_FAINTED -> this.giveDialog(player, Util.getRandom(this.dialogConfig.getPlayerTeamFainted(), this.random));
+            case GENERAL -> this.giveDialog(player, Util.getRandom(this.dialogConfig.getStandardDialog(), this.random));
+            default -> this.giveDialog(player, Util.getRandom(this.dialogConfig.getStandardDialog(), this.random));
+        }
+
+    }
+
+    // Team Roster Generation
 
     private ArrayList<BagItemModel> getBag() {
         ArrayList<BagItemModel> bag = new ArrayList<BagItemModel>();
@@ -155,31 +198,31 @@ public class TrainerEntity extends NPCEntity {
     }
 
     private String getRandomWeightedSpecies(int weightSum, List<TrainerConfig.SpeciesEntry> speciesEntryList){
-            Map<TrainerConfig.SpeciesEntry, Integer> map = speciesEntryList.stream().collect(Collectors.toMap(
-                    trainerConfig -> trainerConfig,
-                    TrainerConfig.SpeciesEntry::getWeight
-            ));
+        Map<TrainerConfig.SpeciesEntry, Integer> map = speciesEntryList.stream().collect(Collectors.toMap(
+                trainerConfig -> trainerConfig,
+                TrainerConfig.SpeciesEntry::getWeight
+        ));
 
-            var random = Math.random() * weightSum;
-            for(Map.Entry<TrainerConfig.SpeciesEntry, Integer> entry: map.entrySet()){
-                random -= entry.getValue();
-                if (random <= 0) return entry.getKey().getName();
-            }
+        var random = Math.random() * weightSum;
+        for(Map.Entry<TrainerConfig.SpeciesEntry, Integer> entry: map.entrySet()){
+            random -= entry.getValue();
+            if (random <= 0) return entry.getKey().getName();
+        }
 
-            return "ditto";
+        return "ditto";
 
     }
 
     private String updateSpeciesIfCanEvolve(Pokemon pokemon) {
         String species = pokemon.getSpecies().getName();
-            for (Evolution evolution : pokemon.getEvolutions()) {
-                if (evolution instanceof LevelUpEvolution) {
-                    boolean canEvolve = evolution.test(pokemon);
-                    if (canEvolve) {
-                        return updateSpeciesIfCanEvolve(evolution.getResult().create());
-                    }
+        for (Evolution evolution : pokemon.getEvolutions()) {
+            if (evolution instanceof LevelUpEvolution) {
+                boolean canEvolve = evolution.test(pokemon);
+                if (canEvolve) {
+                    return updateSpeciesIfCanEvolve(evolution.getResult().create());
                 }
             }
+        }
         return species;
     }
 
@@ -197,10 +240,6 @@ public class TrainerEntity extends NPCEntity {
         var distance = Math.sqrt(dx*dx+dz*dz);
         var level = Math.round(Math.clamp(1.5+Math.pow(Math.log10(0.12*distance), 3.75), 7, 100));
         return Math.toIntExact(level);
-    }
-
-    public void playerHasNoUseablePokemon(PlayerEntity player) {
-        this.giveDialog(player, "Oh no, your poor Pokemon! You need to get them healed first.");
     }
 
     // NBT Data
