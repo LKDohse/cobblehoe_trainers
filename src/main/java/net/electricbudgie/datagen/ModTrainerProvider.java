@@ -122,11 +122,31 @@ public class ModTrainerProvider implements DataProvider {
             .addSpecies("swinub",4)
             .build();
 
+    private final TrainerConfig CURLER = new TrainerConfig.Builder()
+            .setName("curler")
+            .setDefaultTeamSize(3)
+            .addSpecies("glalie")
+            .addSpecies("cubchoo")
+            .addSpecies("cryogonal")
+            .addSpecies("bergmite")
+            .addSpecies("swinub")
+            .addSpecies("amaura")
+            .addSpecies("rockruff")
+            .addSpecies("roggenrola")
+            .addSpecies("geodude")
+            .addSpecies("shuckle")
+            .addSpecies("rhyhorn")
+            .addSpecies("larvitar")
+            .addSpecies("golem", 4, 35)
+            .addSpecies("gigalith", 4, 35)
+            .build();
+
 
     public void generate(){
         writeTrainerJson(Identifier.of(CobblehoeTrainers.MOD_ID, "lass"), LASS);
         writeTrainerJson(Identifier.of(CobblehoeTrainers.MOD_ID, "youngster"), YOUNGSTER);
         writeTrainerJson(Identifier.of(CobblehoeTrainers.MOD_ID, "hiker"), HIKER);
+        writeTrainerJson(Identifier.of(CobblehoeTrainers.MOD_ID, "curler"), CURLER);
     }
 
     public void writeTrainerJson(Identifier id, TrainerConfig trainerConfig){

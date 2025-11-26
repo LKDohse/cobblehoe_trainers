@@ -1,0 +1,76 @@
+{
+  "name": "curler",
+  "defaultTeamSize": 3,
+  "speciesList": [
+    {
+      "name": "glalie",
+      "minimum_trainer_level_required": 1,
+      "weight": 5
+    },
+    {
+      "name": "cubchoo",
+      "minimum_trainer_level_required": 1,
+      "weight": 5
+    },
+    {
+      "name": "cryogonal",
+      "minimum_trainer_level_required": 1,
+      "weight": 5
+    },
+    {
+      "name": "bergmite",
+      "minimum_trainer_level_required": 1,
+      "weight": 5
+    },
+    {
+      "name": "swinub",
+      "minimum_trainer_level_required": 1,
+      "weight": 5
+    },
+    {
+      "name": "amaura",
+      "minimum_trainer_level_required": 1,
+      "weight": 5
+    },
+    {
+      "name": "rockruff",
+      "minimum_trainer_level_required": 1,
+      "weight": 5
+    },
+    {
+      "name": "roggenrola",
+      "minimum_trainer_level_required": 1,
+      "weight": 5
+    },
+    {
+      "name": "geodude",
+      "minimum_trainer_level_required": 1,
+      "weight": 5
+    },
+    {
+      "name": "shuckle",
+      "minimum_trainer_level_required": 1,
+      "weight": 5
+    },
+    {
+      "name": "rhyhorn",
+      "minimum_trainer_level_required": 1,
+      "weight": 5
+    },
+    {
+      "name": "larvitar",
+      "minimum_trainer_level_required": 1,
+      "weight": 5
+    },
+    {
+      "name": "golem",
+      "minimum_trainer_level_required": 35,
+      "weight": 4
+    },
+    {
+      "name": "gigalith",
+      "minimum_trainer_level_required": 35,
+      "weight": 4
+    }
+  ]
+}

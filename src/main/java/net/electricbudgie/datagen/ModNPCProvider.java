@@ -66,10 +66,21 @@ public class ModNPCProvider implements DataProvider {
             .addBiome(BiomeKeys.SNOWY_SLOPES)
             .build();
 
+    private final NPCSpawnConfig CURLER = new NPCSpawnConfig.Builder()
+            .setName("curler")
+            .setSpawnChance(5)
+            .addBiome(BiomeKeys.FROZEN_RIVER)
+            .addBiome(BiomeKeys.FROZEN_OCEAN)
+            .addBiome(BiomeKeys.SNOWY_BEACH)
+            .addBiome(BiomeKeys.ICE_SPIKES)
+            .addBiome(BiomeKeys.SNOWY_PLAINS)
+            .build();
+
     public void generate(){
         writeSpawnJson(Identifier.of(CobblehoeTrainers.MOD_ID, "lass"), LASS);
         writeSpawnJson(Identifier.of(CobblehoeTrainers.MOD_ID, "youngster"), YOUNGSTER);
         writeSpawnJson(Identifier.of(CobblehoeTrainers.MOD_ID, "hiker"), HIKER);
+        writeSpawnJson(Identifier.of(CobblehoeTrainers.MOD_ID, "curler"), CURLER);
     }
 
     public void writeSpawnJson(Identifier id, NPCSpawnConfig npcSpawnConfig){

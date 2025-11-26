@@ -57,10 +57,21 @@ public class ModDialogProvider implements DataProvider {
             .addPlayerTeamFainted("Your pokemon can't grow any stronger if they aren't fit to fight!")
             .build();
 
+    private final NPCDialogConfig CURLER = new NPCDialogConfig.Builder()
+            .setName("curler")
+            .addStandardDialog("Is it curling season yet?")
+            .addStartBattle("A trainer? Looks like I'm gunning for a take-out!")
+            .addLoseBattle("Looks like you took me out!")
+            .addWinBattle("Don't worry, first round is on me.")
+            .addNoPokemon("You should probably find a pokemon first.")
+            .addPlayerTeamFainted("You better get your pokemon to the warm room.")
+            .build();
+
     public void generate(){
         writeDialogJson(Identifier.of(CobblehoeTrainers.MOD_ID, "lass"), LASS);
         writeDialogJson(Identifier.of(CobblehoeTrainers.MOD_ID, "youngster"), YOUNGSTER);
         writeDialogJson(Identifier.of(CobblehoeTrainers.MOD_ID, "hiker"), HIKER);
+        writeDialogJson(Identifier.of(CobblehoeTrainers.MOD_ID, "curler"), CURLER);
     }
 
     public void writeDialogJson(Identifier id, NPCDialogConfig npcSpawnConfig){

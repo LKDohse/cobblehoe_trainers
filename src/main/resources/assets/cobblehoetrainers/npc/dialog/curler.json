@@ -1,0 +1,21 @@
+{
+  "name": "curler",
+  "standardDialog": [
+    "Is it curling season yet?"
+  ],
+  "startBattle": [
+    "A trainer? Looks like I\u0027m gunning for a take-out!"
+  ],
+  "loseBattle": [
+    "Looks like you took me out!"
+  ],
+  "winBattle": [
+    "Don\u0027t worry, first round is on me."
+  ],
+  "noPokemon": [
+    "You should probably find a pokemon first."
+  ],
+  "playerTeamFainted": [
+    "You better get your pokemon to the warm room."
+  ]
+}
