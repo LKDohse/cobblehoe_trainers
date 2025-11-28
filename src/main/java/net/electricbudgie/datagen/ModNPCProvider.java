@@ -2,7 +2,6 @@ package net.electricbudgie.datagen;
 
 import net.electricbudgie.CobblehoeTrainers;
 import net.electricbudgie.datagen.configs.NPCSpawnConfig;
-import net.electricbudgie.datagen.configs.TrainerConfig;
 import net.minecraft.data.DataOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.DataWriter;
