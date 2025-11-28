@@ -76,11 +76,18 @@ public class ModNPCProvider implements DataProvider {
             .addBiome(BiomeKeys.SNOWY_PLAINS)
             .build();
 
+    private final NPCSpawnConfig ESPORTSCOACH = new NPCSpawnConfig.Builder()
+            .setName("esportscoach")
+            .setSpawnChance(5)
+            .addBiome(BiomeKeys.DESERT)
+            .build();
+
     public void generate(){
         writeSpawnJson(Identifier.of(CobblehoeTrainers.MOD_ID, "lass"), LASS);
         writeSpawnJson(Identifier.of(CobblehoeTrainers.MOD_ID, "youngster"), YOUNGSTER);
         writeSpawnJson(Identifier.of(CobblehoeTrainers.MOD_ID, "hiker"), HIKER);
         writeSpawnJson(Identifier.of(CobblehoeTrainers.MOD_ID, "curler"), CURLER);
+        writeSpawnJson(Identifier.of(CobblehoeTrainers.MOD_ID, "esportscoach"), ESPORTSCOACH);
     }
 
     public void writeSpawnJson(Identifier id, NPCSpawnConfig npcSpawnConfig){

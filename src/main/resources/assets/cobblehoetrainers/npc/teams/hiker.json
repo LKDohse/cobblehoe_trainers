@@ -5,97 +5,116 @@
     {
       "name": "geodude",
       "minimum_trainer_level_required": 1,
-      "weight": 7
+      "weight": 7,
+      "skipEvolution": false
     },
     {
       "name": "golem",
       "minimum_trainer_level_required": 35,
-      "weight": 4
+      "weight": 4,
+      "skipEvolution": false
     },
     {
       "name": "onix",
       "minimum_trainer_level_required": 1,
-      "weight": 6
+      "weight": 6,
+      "skipEvolution": false
     },
     {
       "name": "steelix",
       "minimum_trainer_level_required": 35,
-      "weight": 4
+      "weight": 4,
+      "skipEvolution": false
     },
     {
       "name": "zubat",
       "minimum_trainer_level_required": 1,
-      "weight": 6
+      "weight": 6,
+      "skipEvolution": false
     },
     {
       "name": "diglett",
       "minimum_trainer_level_required": 1,
-      "weight": 6
+      "weight": 6,
+      "skipEvolution": false
     },
     {
       "name": "machop",
       "minimum_trainer_level_required": 1,
-      "weight": 5
+      "weight": 5,
+      "skipEvolution": false
     },
     {
       "name": "machamp",
       "minimum_trainer_level_required": 40,
-      "weight": 3
+      "weight": 3,
+      "skipEvolution": false
     },
     {
       "name": "nosepass",
       "minimum_trainer_level_required": 1,
-      "weight": 6
+      "weight": 6,
+      "skipEvolution": false
     },
     {
       "name": "sandshrew",
       "minimum_trainer_level_required": 1,
-      "weight": 5
+      "weight": 5,
+      "skipEvolution": false
     },
     {
       "name": "numel",
       "minimum_trainer_level_required": 1,
-      "weight": 3
+      "weight": 3,
+      "skipEvolution": false
     },
     {
       "name": "roggenrola",
       "minimum_trainer_level_required": 1,
-      "weight": 4
+      "weight": 4,
+      "skipEvolution": false
     },
     {
       "name": "gigalith",
       "minimum_trainer_level_required": 35,
-      "weight": 4
+      "weight": 4,
+      "skipEvolution": false
     },
     {
       "name": "aron",
       "minimum_trainer_level_required": 1,
-      "weight": 3
+      "weight": 3,
+      "skipEvolution": false
     },
     {
       "name": "drilbur",
       "minimum_trainer_level_required": 1,
-      "weight": 4
+      "weight": 4,
+      "skipEvolution": false
     },
     {
       "name": "timburr",
       "minimum_trainer_level_required": 1,
-      "weight": 3
+      "weight": 3,
+      "skipEvolution": false
     },
     {
       "name": "conkeldurr",
       "minimum_trainer_level_required": 40,
-      "weight": 3
+      "weight": 3,
+      "skipEvolution": false
     },
     {
       "name": "gligar",
       "minimum_trainer_level_required": 1,
-      "weight": 5
+      "weight": 5,
+      "skipEvolution": false
     },
     {
       "name": "swinub",
       "minimum_trainer_level_required": 1,
-      "weight": 4
+      "weight": 4,
+      "skipEvolution": false
     }
   ]
 }

@@ -12,7 +12,7 @@ public class TrainerConfig {
     public int defaultTeamSize;
     public List<SpeciesEntry> speciesList;
 
-    public TrainerConfig(String name,int defaultTeamSize, List<SpeciesEntry> speciesList){
+    public TrainerConfig(String name, int defaultTeamSize, List<SpeciesEntry> speciesList) {
         this.name = name;
         this.defaultTeamSize = defaultTeamSize;
         this.speciesList = speciesList;
@@ -26,15 +26,30 @@ public class TrainerConfig {
 
         private int weight = 5;
 
-        public SpeciesEntry(String name, int minimumTrainerLevel){
+        private boolean skipEvolution = false;
+
+        public SpeciesEntry(String name, int minimumTrainerLevel) {
             this.name = name;
             this.minimumTrainerLevel = minimumTrainerLevel;
+        }
+
+        public SpeciesEntry(String name, int minimumTrainerLevel, boolean skipEvolution) {
+            this.name = name;
+            this.minimumTrainerLevel = minimumTrainerLevel;
+            this.skipEvolution = skipEvolution;
         }
 
         public SpeciesEntry(String name, int minimumTrainerLevel, int weight) {
             this.name = name;
             this.minimumTrainerLevel = minimumTrainerLevel;
             this.weight = weight;
+        }
+
+        public SpeciesEntry(String name, int minimumTrainerLevel, int weight, boolean skipEvolution) {
+            this.name = name;
+            this.minimumTrainerLevel = minimumTrainerLevel;
+            this.weight = weight;
+            this.skipEvolution = skipEvolution;
         }
 
         public String getName() {
@@ -45,8 +60,12 @@ public class TrainerConfig {
             return minimumTrainerLevel;
         }
 
-        public int getWeight(){
+        public int getWeight() {
             return weight;
+        }
+
+        public boolean skipEvolution() {
+            return skipEvolution;
         }
     }
 
@@ -55,13 +74,15 @@ public class TrainerConfig {
         return gson.toJson(this);
     }
 
-    /** Helper builder for easy creation */
+    /**
+     * Helper builder for easy creation
+     */
     public static class Builder {
         private int defaultTeamSize;
         private List<SpeciesEntry> speciesList = new ArrayList<>();
         private String name;
 
-        public Builder setName(String name){
+        public Builder setName(String name) {
             this.name = name;
             return this;
         }
@@ -82,7 +103,12 @@ public class TrainerConfig {
             return this;
         }
 
-        public Builder addSpecies(String name, int weight, int minLevel){
+        public Builder addSpecies(String name, boolean skipEvolution) {
+            this.speciesList.add(new SpeciesEntry(name, 1, skipEvolution));
+            return this;
+        }
+
+        public Builder addSpecies(String name, int weight, int minLevel) {
             this.speciesList.add(new SpeciesEntry(name, minLevel, weight));
             return this;
         }

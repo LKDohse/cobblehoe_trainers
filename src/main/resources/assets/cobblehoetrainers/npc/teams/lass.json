@@ -5,182 +5,218 @@
     {
       "name": "pidgey",
       "minimum_trainer_level_required": 1,
-      "weight": 6
+      "weight": 6,
+      "skipEvolution": false
     },
     {
       "name": "spearow",
       "minimum_trainer_level_required": 1,
-      "weight": 5
+      "weight": 5,
+      "skipEvolution": false
     },
     {
       "name": "bidoof",
       "minimum_trainer_level_required": 1,
-      "weight": 7
+      "weight": 7,
+      "skipEvolution": false
     },
     {
       "name": "jigglypuff",
       "minimum_trainer_level_required": 1,
-      "weight": 6
+      "weight": 6,
+      "skipEvolution": false
     },
     {
       "name": "clefairy",
       "minimum_trainer_level_required": 1,
-      "weight": 6
+      "weight": 6,
+      "skipEvolution": false
     },
     {
       "name": "clefable",
       "minimum_trainer_level_required": 25,
-      "weight": 5
+      "weight": 5,
+      "skipEvolution": false
     },
     {
       "name": "wigglytuff",
       "minimum_trainer_level_required": 25,
-      "weight": 5
+      "weight": 5,
+      "skipEvolution": false
     },
     {
       "name": "nidoranf",
       "minimum_trainer_level_required": 1,
-      "weight": 6
+      "weight": 6,
+      "skipEvolution": false
     },
     {
       "name": "nidoqueen",
       "minimum_trainer_level_required": 40,
-      "weight": 6
+      "weight": 6,
+      "skipEvolution": false
     },
     {
       "name": "oddish",
       "minimum_trainer_level_required": 1,
-      "weight": 4
+      "weight": 4,
+      "skipEvolution": false
     },
     {
       "name": "vileplume",
       "minimum_trainer_level_required": 35,
-      "weight": 3
+      "weight": 3,
+      "skipEvolution": false
     },
     {
       "name": "bellsprout",
       "minimum_trainer_level_required": 1,
-      "weight": 4
+      "weight": 4,
+      "skipEvolution": false
     },
     {
       "name": "victreebel",
       "minimum_trainer_level_required": 35,
-      "weight": 3
+      "weight": 3,
+      "skipEvolution": false
     },
     {
       "name": "meowth",
       "minimum_trainer_level_required": 1,
-      "weight": 6
+      "weight": 6,
+      "skipEvolution": false
     },
     {
       "name": "paras",
       "minimum_trainer_level_required": 1,
-      "weight": 5
+      "weight": 5,
+      "skipEvolution": false
     },
     {
       "name": "psyduck",
       "minimum_trainer_level_required": 1,
-      "weight": 5
+      "weight": 5,
+      "skipEvolution": false
     },
     {
       "name": "mareep",
       "minimum_trainer_level_required": 1,
-      "weight": 5
+      "weight": 5,
+      "skipEvolution": false
     },
     {
       "name": "hoppip",
       "minimum_trainer_level_required": 1,
-      "weight": 5
+      "weight": 5,
+      "skipEvolution": false
     },
     {
       "name": "sunkern",
       "minimum_trainer_level_required": 1,
-      "weight": 5
+      "weight": 5,
+      "skipEvolution": false
     },
     {
       "name": "marill",
       "minimum_trainer_level_required": 1,
-      "weight": 6
+      "weight": 6,
+      "skipEvolution": false
     },
     {
       "name": "lotad",
       "minimum_trainer_level_required": 1,
-      "weight": 5
+      "weight": 5,
+      "skipEvolution": false
     },
     {
       "name": "luvdisc",
       "minimum_trainer_level_required": 1,
-      "weight": 5
+      "weight": 5,
+      "skipEvolution": false
     },
     {
       "name": "shroomish",
       "minimum_trainer_level_required": 1,
-      "weight": 5
+      "weight": 5,
+      "skipEvolution": false
     },
     {
       "name": "skitty",
       "minimum_trainer_level_required": 1,
-      "weight": 5
+      "weight": 5,
+      "skipEvolution": false
     },
     {
       "name": "pachirisu",
       "minimum_trainer_level_required": 1,
-      "weight": 5
+      "weight": 5,
+      "skipEvolution": false
     },
     {
       "name": "cherubi",
       "minimum_trainer_level_required": 1,
-      "weight": 5
+      "weight": 5,
+      "skipEvolution": false
     },
     {
       "name": "budew",
       "minimum_trainer_level_required": 1,
-      "weight": 5
+      "weight": 5,
+      "skipEvolution": false
     },
     {
       "name": "roselia",
       "minimum_trainer_level_required": 15,
-      "weight": 5
+      "weight": 5,
+      "skipEvolution": false
     },
     {
       "name": "roserade",
       "minimum_trainer_level_required": 30,
-      "weight": 5
+      "weight": 5,
+      "skipEvolution": false
     },
     {
       "name": "whimsicott",
       "minimum_trainer_level_required": 30,
-      "weight": 5
+      "weight": 5,
+      "skipEvolution": false
     },
     {
       "name": "deerling",
       "minimum_trainer_level_required": 1,
-      "weight": 5
+      "weight": 5,
+      "skipEvolution": false
     },
     {
       "name": "buneary",
       "minimum_trainer_level_required": 1,
-      "weight": 6
+      "weight": 6,
+      "skipEvolution": false
     },
     {
       "name": "purrloin",
       "minimum_trainer_level_required": 1,
-      "weight": 5
+      "weight": 5,
+      "skipEvolution": false
     },
     {
       "name": "gothita",
       "minimum_trainer_level_required": 1,
-      "weight": 4
+      "weight": 4,
+      "skipEvolution": false
     },
     {
       "name": "bunnelby",
       "minimum_trainer_level_required": 1,
-      "weight": 5
+      "weight": 5,
+      "skipEvolution": false
     },
     {
       "name": "dendenne",
       "minimum_trainer_level_required": 1,
-      "weight": 6
+      "weight": 6,
+      "skipEvolution": false
     }
   ]
 }

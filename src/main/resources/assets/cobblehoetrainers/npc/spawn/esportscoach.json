@@ -1,0 +1,7 @@
+{
+  "name": "esportscoach",
+  "spawnChance": 5,
+  "preferredBiomes": [
+    "minecraft:desert"
+  ]
+}

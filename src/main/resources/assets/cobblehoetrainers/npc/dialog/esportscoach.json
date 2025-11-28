@@ -1,0 +1,21 @@
+{
+  "name": "esportscoach",
+  "standardDialog": [
+    "Aw man, one of my players set his Discord status to \u0027masturbating.\u0027 I have to deal with that now."
+  ],
+  "startBattle": [
+    "I hope you\u0027re ready to be coached in competitive pokemon!"
+  ],
+  "loseBattle": [
+    "I\u0027m the one that got coached!"
+  ],
+  "winBattle": [
+    "See you at practice!"
+  ],
+  "noPokemon": [
+    "I hope you don\u0027t need me to be the one to teach you that you need a pokemon in order to have a battle?"
+  ],
+  "playerTeamFainted": [
+    "What is wrong with you? Go get your pokemon healed!"
+  ]
+}
