@@ -5,72 +5,86 @@
     {
       "name": "glalie",
       "minimum_trainer_level_required": 1,
-      "weight": 5
+      "weight": 5,
+      "skipEvolution": false
     },
     {
       "name": "cubchoo",
       "minimum_trainer_level_required": 1,
-      "weight": 5
+      "weight": 5,
+      "skipEvolution": false
     },
     {
       "name": "cryogonal",
       "minimum_trainer_level_required": 1,
-      "weight": 5
+      "weight": 5,
+      "skipEvolution": false
     },
     {
       "name": "bergmite",
       "minimum_trainer_level_required": 1,
-      "weight": 5
+      "weight": 5,
+      "skipEvolution": false
     },
     {
       "name": "swinub",
       "minimum_trainer_level_required": 1,
-      "weight": 5
+      "weight": 5,
+      "skipEvolution": false
     },
     {
       "name": "amaura",
       "minimum_trainer_level_required": 1,
-      "weight": 5
+      "weight": 5,
+      "skipEvolution": false
     },
     {
       "name": "rockruff",
       "minimum_trainer_level_required": 1,
-      "weight": 5
+      "weight": 5,
+      "skipEvolution": false
     },
     {
       "name": "roggenrola",
       "minimum_trainer_level_required": 1,
-      "weight": 5
+      "weight": 5,
+      "skipEvolution": false
     },
     {
       "name": "geodude",
       "minimum_trainer_level_required": 1,
-      "weight": 5
+      "weight": 5,
+      "skipEvolution": false
     },
     {
       "name": "shuckle",
       "minimum_trainer_level_required": 1,
-      "weight": 5
+      "weight": 5,
+      "skipEvolution": false
     },
     {
       "name": "rhyhorn",
       "minimum_trainer_level_required": 1,
-      "weight": 5
+      "weight": 5,
+      "skipEvolution": false
     },
     {
       "name": "larvitar",
       "minimum_trainer_level_required": 1,
-      "weight": 5
+      "weight": 5,
+      "skipEvolution": false
     },
     {
       "name": "golem",
       "minimum_trainer_level_required": 35,
-      "weight": 4
+      "weight": 4,
+      "skipEvolution": false
     },
     {
       "name": "gigalith",
       "minimum_trainer_level_required": 35,
-      "weight": 4
+      "weight": 4,
+      "skipEvolution": false
     }
   ]
 }

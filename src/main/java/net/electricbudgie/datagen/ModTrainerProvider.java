@@ -141,12 +141,27 @@ public class ModTrainerProvider implements DataProvider {
             .addSpecies("gigalith", 4, 35)
             .build();
 
+    private final TrainerConfig ESPORTSCOACH = new TrainerConfig.Builder()
+            .setName("esportscoach")
+            .setDefaultTeamSize(4)
+            .addSpecies("fuecoco", true)
+            .addSpecies("gible", true)
+            .addSpecies("munchlax", true)
+            .addSpecies("lechonk", true)
+            .addSpecies("axew", true)
+            .addSpecies("larvitar", true)
+            .addSpecies("appletun", true)
+            .addSpecies("frigibax", true)
+            .addSpecies("onix", true)
+            .build();
+
 
     public void generate(){
         writeTrainerJson(Identifier.of(CobblehoeTrainers.MOD_ID, "lass"), LASS);
         writeTrainerJson(Identifier.of(CobblehoeTrainers.MOD_ID, "youngster"), YOUNGSTER);
         writeTrainerJson(Identifier.of(CobblehoeTrainers.MOD_ID, "hiker"), HIKER);
         writeTrainerJson(Identifier.of(CobblehoeTrainers.MOD_ID, "curler"), CURLER);
+        writeTrainerJson(Identifier.of(CobblehoeTrainers.MOD_ID, "esportscoach"), ESPORTSCOACH);
     }
 
     public void writeTrainerJson(Identifier id, TrainerConfig trainerConfig){

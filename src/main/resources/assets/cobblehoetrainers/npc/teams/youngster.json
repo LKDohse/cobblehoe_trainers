@@ -5,157 +5,188 @@
     {
       "name": "rattata",
       "minimum_trainer_level_required": 1,
-      "weight": 8
+      "weight": 8,
+      "skipEvolution": false
     },
     {
       "name": "poochyena",
       "minimum_trainer_level_required": 1,
-      "weight": 6
+      "weight": 6,
+      "skipEvolution": false
     },
     {
       "name": "spearow",
       "minimum_trainer_level_required": 1,
-      "weight": 5
+      "weight": 5,
+      "skipEvolution": false
     },
     {
       "name": "zigzagoon",
       "minimum_trainer_level_required": 1,
-      "weight": 6
+      "weight": 6,
+      "skipEvolution": false
     },
     {
       "name": "starly",
       "minimum_trainer_level_required": 1,
-      "weight": 5
+      "weight": 5,
+      "skipEvolution": false
     },
     {
       "name": "caterpie",
       "minimum_trainer_level_required": 1,
-      "weight": 3
+      "weight": 3,
+      "skipEvolution": false
     },
     {
       "name": "weedle",
       "minimum_trainer_level_required": 1,
-      "weight": 3
+      "weight": 3,
+      "skipEvolution": false
     },
     {
       "name": "spinerak",
       "minimum_trainer_level_required": 1,
-      "weight": 4
+      "weight": 4,
+      "skipEvolution": false
     },
     {
       "name": "ladyba",
       "minimum_trainer_level_required": 1,
-      "weight": 3
+      "weight": 3,
+      "skipEvolution": false
     },
     {
       "name": "nidoranm",
       "minimum_trainer_level_required": 1,
-      "weight": 6
+      "weight": 6,
+      "skipEvolution": false
     },
     {
       "name": "nidoking",
       "minimum_trainer_level_required": 45,
-      "weight": 6
+      "weight": 6,
+      "skipEvolution": false
     },
     {
       "name": "slowpoke",
       "minimum_trainer_level_required": 1,
-      "weight": 3
+      "weight": 3,
+      "skipEvolution": false
     },
     {
       "name": "ekans",
       "minimum_trainer_level_required": 1,
-      "weight": 4
+      "weight": 4,
+      "skipEvolution": false
     },
     {
       "name": "sandshrew",
       "minimum_trainer_level_required": 1,
-      "weight": 5
+      "weight": 5,
+      "skipEvolution": false
     },
     {
       "name": "mankey",
       "minimum_trainer_level_required": 1,
-      "weight": 5
+      "weight": 5,
+      "skipEvolution": false
     },
     {
       "name": "zubat",
       "minimum_trainer_level_required": 1,
-      "weight": 5
+      "weight": 5,
+      "skipEvolution": false
     },
     {
       "name": "crobat",
       "minimum_trainer_level_required": 35,
-      "weight": 3
+      "weight": 3,
+      "skipEvolution": false
     },
     {
       "name": "growlith",
       "minimum_trainer_level_required": 1,
-      "weight": 3
+      "weight": 3,
+      "skipEvolution": false
     },
     {
       "name": "seedot",
       "minimum_trainer_level_required": 1,
-      "weight": 4
+      "weight": 4,
+      "skipEvolution": false
     },
     {
       "name": "shiftry",
       "minimum_trainer_level_required": 25,
-      "weight": 5
+      "weight": 5,
+      "skipEvolution": false
     },
     {
       "name": "tranpinch",
       "minimum_trainer_level_required": 1,
-      "weight": 2
+      "weight": 2,
+      "skipEvolution": false
     },
     {
       "name": "electrike",
       "minimum_trainer_level_required": 1,
-      "weight": 3
+      "weight": 3,
+      "skipEvolution": false
     },
     {
       "name": "kricketot",
       "minimum_trainer_level_required": 1,
-      "weight": 3
+      "weight": 3,
+      "skipEvolution": false
     },
     {
       "name": "aipom",
       "minimum_trainer_level_required": 1,
-      "weight": 3
+      "weight": 3,
+      "skipEvolution": false
     },
     {
       "name": "buizel",
       "minimum_trainer_level_required": 1,
-      "weight": 3
+      "weight": 3,
+      "skipEvolution": false
     },
     {
       "name": "patrat",
       "minimum_trainer_level_required": 1,
-      "weight": 6
+      "weight": 6,
+      "skipEvolution": false
     },
     {
       "name": "lillipup",
       "minimum_trainer_level_required": 1,
-      "weight": 5
+      "weight": 5,
+      "skipEvolution": false
     },
     {
       "name": "yanma",
       "minimum_trainer_level_required": 1,
-      "weight": 3
+      "weight": 3,
+      "skipEvolution": false
     },
     {
       "name": "venonat",
       "minimum_trainer_level_required": 1,
-      "weight": 4
+      "weight": 4,
+      "skipEvolution": false
     },
     {
       "name": "pidove",
       "minimum_trainer_level_required": 1,
-      "weight": 4
+      "weight": 4,
+      "skipEvolution": false
     },
     {
       "name": "emolga",
       "minimum_trainer_level_required": 1,
-      "weight": 3
+      "weight": 3,
+      "skipEvolution": false
     }
   ]
 }

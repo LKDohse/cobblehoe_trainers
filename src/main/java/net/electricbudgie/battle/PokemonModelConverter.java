@@ -29,8 +29,7 @@ public class PokemonModelConverter {
 
     private static String getHeldItem(Pokemon pokemon){
         if (pokemon.heldItem().isEmpty()) return "everstone";
-        var item = Registries.ITEM.getId(pokemon.heldItem().getItem());
-        return item.toString().toLowerCase();
+        return pokemon.heldItem().getItem().toString();
     }
 
     private static PokemonModel.StatsModel getIvStats(Pokemon pokemon) {

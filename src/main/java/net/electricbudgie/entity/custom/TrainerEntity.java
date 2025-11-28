@@ -201,17 +201,24 @@ public class TrainerEntity extends NPCEntity {
         for (int i = 0; i < calculateTeamSize(config.defaultTeamSize); i++) {
             int levelOffset = random.nextInt(defaultLevelOffset * 2 + 1) - defaultLevelOffset;
             int level = Math.clamp(defaultLevel + levelOffset, 1, 100);
-            String species = getRandomWeightedSpecies(speciesListWeightSum, config.speciesList);
+            TrainerConfig.SpeciesEntry species = getRandomWeightedSpecies(speciesListWeightSum, config.speciesList);
             PokemonProperties properties = new PokemonProperties();
             properties.setLevel(level);
-            properties.setSpecies(species);
-            properties.setSpecies(updateSpeciesIfCanEvolve(properties.create()));
+            properties.setSpecies(species.getName());
+            handleEvolutionSettings(species, properties);
             team.add(PokemonModelConverter.getModel(properties.create()));
         }
         return team;
     }
 
-    private String getRandomWeightedSpecies(int weightSum, List<TrainerConfig.SpeciesEntry> speciesEntryList) {
+    private void handleEvolutionSettings(TrainerConfig.SpeciesEntry species, PokemonProperties properties) {
+        if (species.skipEvolution() && properties.getHeldItem() == null)
+            properties.setHeldItem("cobblemon:eviolite");
+        else
+            properties.setSpecies(updateSpeciesIfCanEvolve(properties.create()));
+    }
+
+    private TrainerConfig.SpeciesEntry getRandomWeightedSpecies(int weightSum, List<TrainerConfig.SpeciesEntry> speciesEntryList) {
         Map<TrainerConfig.SpeciesEntry, Integer> map = speciesEntryList.stream().collect(Collectors.toMap(
                 trainerConfig -> trainerConfig,
                 TrainerConfig.SpeciesEntry::getWeight
@@ -220,11 +227,10 @@ public class TrainerEntity extends NPCEntity {
         var random = Math.random() * weightSum;
         for (Map.Entry<TrainerConfig.SpeciesEntry, Integer> entry : map.entrySet()) {
             random -= entry.getValue();
-            if (random <= 0) return entry.getKey().getName();
+            if (random <= 0) return entry.getKey();
         }
 
-        return "ditto";
-
+        return new TrainerConfig.SpeciesEntry("ditto", 1);
     }
 
     private String updateSpeciesIfCanEvolve(Pokemon pokemon) {

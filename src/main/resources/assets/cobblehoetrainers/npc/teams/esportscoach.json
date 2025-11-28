@@ -1,0 +1,60 @@
+{
+  "name": "esportscoach",
+  "defaultTeamSize": 4,
+  "speciesList": [
+    {
+      "name": "fuecoco",
+      "minimum_trainer_level_required": 1,
+      "weight": 5,
+      "skipEvolution": true
+    },
+    {
+      "name": "gible",
+      "minimum_trainer_level_required": 1,
+      "weight": 5,
+      "skipEvolution": true
+    },
+    {
+      "name": "munchlax",
+      "minimum_trainer_level_required": 1,
+      "weight": 5,
+      "skipEvolution": true
+    },
+    {
+      "name": "lechonk",
+      "minimum_trainer_level_required": 1,
+      "weight": 5,
+      "skipEvolution": true
+    },
+    {
+      "name": "axew",
+      "minimum_trainer_level_required": 1,
+      "weight": 5,
+      "skipEvolution": true
+    },
+    {
+      "name": "larvitar",
+      "minimum_trainer_level_required": 1,
+      "weight": 5,
+      "skipEvolution": true
+    },
+    {
+      "name": "appletun",
+      "minimum_trainer_level_required": 1,
+      "weight": 5,
+      "skipEvolution": true
+    },
+    {
+      "name": "frigibax",
+      "minimum_trainer_level_required": 1,
+      "weight": 5,
+      "skipEvolution": true
+    },
+    {
+      "name": "onix",
+      "minimum_trainer_level_required": 1,
+      "weight": 5,
+      "skipEvolution": true
+    }
+  ]
+}

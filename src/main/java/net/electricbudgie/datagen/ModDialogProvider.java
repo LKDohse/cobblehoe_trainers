@@ -67,11 +67,22 @@ public class ModDialogProvider implements DataProvider {
             .addPlayerTeamFainted("You better get your pokemon to the warm room.")
             .build();
 
+    private final NPCDialogConfig ESPORTSCOACH = new NPCDialogConfig.Builder()
+            .setName("esportscoach")
+            .addStandardDialog("Aw man, one of my players set his Discord status to 'masturbating.' I have to deal with that now.")
+            .addStartBattle("I hope you're ready to be coached in competitive pokemon!")
+            .addLoseBattle("I'm the one that got coached!")
+            .addWinBattle("See you at practice!")
+            .addNoPokemon("I hope you don't need me to be the one to teach you that you need a pokemon in order to have a battle?")
+            .addPlayerTeamFainted("What is wrong with you? Go get your pokemon healed!")
+            .build();
+
     public void generate(){
         writeDialogJson(Identifier.of(CobblehoeTrainers.MOD_ID, "lass"), LASS);
         writeDialogJson(Identifier.of(CobblehoeTrainers.MOD_ID, "youngster"), YOUNGSTER);
         writeDialogJson(Identifier.of(CobblehoeTrainers.MOD_ID, "hiker"), HIKER);
         writeDialogJson(Identifier.of(CobblehoeTrainers.MOD_ID, "curler"), CURLER);
+        writeDialogJson(Identifier.of(CobblehoeTrainers.MOD_ID, "esportscoach"), ESPORTSCOACH);
     }
 
     public void writeDialogJson(Identifier id, NPCDialogConfig npcSpawnConfig){

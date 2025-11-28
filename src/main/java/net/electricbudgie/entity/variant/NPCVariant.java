@@ -7,7 +7,8 @@ public enum NPCVariant {
     LASS(0),
     YOUNGSTER(1),
     HIKER(2),
-    CURLER(3);
+    CURLER(3),
+    ESPORTSCOACH(4);
 
     private final int id;
     private static final NPCVariant[] BY_ID = Arrays.stream(values()).sorted(Comparator.comparingInt(NPCVariant::getId)).toArray(NPCVariant[]::new);
